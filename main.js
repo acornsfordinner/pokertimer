@@ -1,8 +1,7 @@
-
-
-
 let clicklist = []
-const buyin_ammount = 100
+
+const buyin_amount_sek = 100
+const start_stack = 200
 let player_count = 0
 let active_players = 0
 let add_on_count = 0
@@ -10,79 +9,52 @@ let rebuy_count = 0
 let chipcount = 0
 let prizepool = 0
 let avg_stack_count = 0
-let round_blinds
 
 
 var Poker = (function () {
   let paus = false
   let pauseCounter = 0
-  var round = 1,
-    duration = 900,
-    timer = duration,
-    blinds = [{
-      small: 1,
-      big: 2
-    }, {
-      small: 2,
-      big: 4
-    }, {
-      small: 3,
-      big: 6
-    }, {
-      small: 4,
-      big: 8
-    }, {
-      small: 5,
-      big: 10
-    }, {
-      small: 6,
-      big: 12
-    }, {
-      small: 8,
-      big: 16
-    }, {
-      small: 10,
-      big: 20
-    }, {
-      small: 20,
-      big: 40
-    }, {
-      small: 30,
-      big: 60
-    }, {
-      small: 40,
-      big: 80
-    }, {
-      small: 50,
-      big: 100
-    }, {
-      small: 100,
-      big: 200
-    }, {
-      small: 250,
-      big: 500
-    }, {
-      small: 250,
-      big: 500
-    }, {
-      small: 250,
-      big: 500
-    }, {
-      small: 250,
-      big: 500
-    }, {
-      small: 250,
-      big: 500
-    }],
-    interval_id
+  let round = 1
+  const  duration = 900
+  let  timer = duration
+  const blinds = [
+      [1, 2],
+      [2, 4],
+      [3, 6],
+      [4, 8],
+      [5, 10],
+      [6, 12],
+      [8, 16],
+      [10, 20],
+      [15, 30],
+      [20, 40],
+      [30, 60],
+      [40, 80],
+      [60, 120],
+      [80, 160],
+      [120, 240],
+      [140, 280],
+      [180, 360],
+      [300, 600],
+      [300, 600],
+      [300, 600],
+      [300, 600],
+      [300, 600],
+      [300, 600],
+      [300, 600],
+      [300, 600],
+    ]
+  let interval_id
 
   return {
     isGamePaused: function () {
       return !interval_id ? true : false
     },
+
     playAlarm: function () {
       $('#alarm')[0].play()
     },
+
     reset: function () {
       // reset timer
       this.resetTimer()
@@ -165,12 +137,11 @@ var Poker = (function () {
       if (paus) {
         $('.small-blind').html('Paus')
         $('.small-blind').html('Paus')
-      }
-      else {
-        round_blinds = blinds[round - 1] || blinds[blinds.length]
+      } else {
+        let round_blinds = blinds[round - 1] || blinds[blinds.length]
 
-        $('.small-blind').html(round_blinds.small)
-        $('.big-blind').html(round_blinds.big)
+        $('.small-blind').html(round_blinds[0])
+        $('.big-blind').html(round_blinds[1])
       }
     },
     updateClock: function (timer) {
@@ -214,20 +185,20 @@ var Poker = (function () {
         pauseCounter = 0
         $('.small-blind').html("Paus")
         $('.big-blind').html("Paus")
-        $('.nextround-info').html(`Nästa nivå: ${blinds[round - 1].small}/${blinds[round - 1].big}`)
+        $('.nextround-info').html(`Nästa nivå: ${blinds[round - 1][0]}/${blinds[round - 1][1]}`)
 
 
       }
       else if (paus) {
         paus = false
         $('#round').html('Nivå' + ' ' + round)
-        $('.nextround-info').html(`Nästa nivå: ${blinds[round].small}/${blinds[round].big}`)
+        $('.nextround-info').html(`Nästa nivå: ${blinds[round][0]}/${blinds[round][1]}`)
 
 
       }
       else {
         $('#round').html('Nivå' + ' ' + round)
-        $('.nextround-info').html(`Nästa nivå: ${blinds[round].small}/${blinds[round].big}`)
+        $('.nextround-info').html(`Nästa nivå: ${blinds[round][0]}/${blinds[round][1]}`)
       }
 
       if (pauseCounter === 3 && !paus) {
@@ -291,34 +262,31 @@ $('.reset-money').on('click', function (event) {
 })
 
 function calculate_prizepool() {
-  chipcount = buyin_ammount * (player_count + rebuy_count + add_on_count)
+  chipcount = start_stack * (player_count + rebuy_count + add_on_count)
   avg_stack_count = Math.round(chipcount / active_players)
-  prizepool = (player_count + add_on_count + rebuy_count) * buyin_ammount
+  prizepool = (player_count + add_on_count + rebuy_count) * buyin_amount_sek
   if (player_count < 4) {
     $('.payout-count').html(`Payout:<br/>
-  <br/>
-  1st place: ${Math.round(prizepool)}Kr (100%)<br/>`)
-  }
-  else if (player_count < 7) {
+    <br/>
+    1st place: ${Math.round(prizepool)}Kr (100%)<br/>`)
+  } else if (player_count < 7) {
     $('.payout-count').html(`Payout:<br>
-  <br>
-  1st place: ${Math.round(prizepool * 0.70)}Kr (70%)<br>
-  2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)`)
-  }
-  else if (player_count >= 7 && player_count <= 16) {
+      <br>
+      1st place: ${Math.round(prizepool * 0.70)}Kr (70%)<br>
+      2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)`)
+  } else if (player_count >= 7 && player_count <= 16) {
     $('.payout-count').html(`Payout:<br>
-  <br>
-  1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
-  2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)<br>
-  3rd place: ${Math.round(prizepool * 0.20)}Kr (20%)`)
-  }
-  else if (player_count > 16) {
+      <br>
+      1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
+      2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)<br>
+      3rd place: ${Math.round(prizepool * 0.20)}Kr (20%)`)
+  } else if (player_count > 16) {
     $('.payout-count').html(`Payout:<br>
-  <br>
-  1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
-  2nd place: ${Math.round(prizepool * 0.25)}Kr (25%)<br>
-  2nd place: ${Math.round(prizepool * 0.15)}Kr (15%)<br>
-  4th place: ${Math.round(prizepool * 0.10)}Kr (10%)`)
+      <br>
+      1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
+      2nd place: ${Math.round(prizepool * 0.25)}Kr (25%)<br>
+      2nd place: ${Math.round(prizepool * 0.15)}Kr (15%)<br>
+      4th place: ${Math.round(prizepool * 0.10)}Kr (10%)`)
   }
 
 }
