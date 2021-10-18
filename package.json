@@ -1,0 +1,17 @@
+{
+  "name": "pokertimer",
+  "version": "2.0.0",
+  "description": "tornets poker",
+  "main": "index.js",
+  "dependencies": {
+    "better-sqlite3": "^7.1.1",
+    "bootstrap": "^4.4.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hans",
+  "license": "ISC"
+}

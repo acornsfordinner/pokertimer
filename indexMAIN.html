@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tornets Poker</title>
+  <script src="jquery.js"></script>
+  <script defer src="main.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Sancreek&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Asset&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="flex-column">
+      <div class="title-div flex-row">
+        <h1 id="data-title">~ Tornets Poker ~</h1>
+      </div>
+      <div class="chip-div flex-row">
+
+        <span id="poker_previous_round">
+          <span class="chip-header" id="header-id"></span>
+          <a href="#" title="Previous Round">↶</a>
+        </span>
+
+        <span id="poker_play_pause">
+          <span class="chip-header" id="header-id"></span>
+          <a href="#" title="Play/Pause" class="play">
+            <span></span>
+          </a>
+        </span>
+
+
+        <span id="poker_next_round">
+          <span class="chip-header" id="header-id"></span>
+          <a href="#" title="Next Round">↷</a>
+        </span>
+      </div>
+    </div>
+  <span class="flex-row">
+    <span class="flex-column" id="span-clock-filler"></span> 
+  <span class="flex-column">
+  <h2 id="round">Nivå 1</h2>
+  <span class="clock">15:00</span>
+</span>
+</span>
+  <div id="poker_blinds">
+    <div class="blinds">
+      <span class="small-blind">1</span>
+      <span class="separator">/</span>
+      <span class="big-blind">2</span>
+    </div>
+    <span id="morkar">Mörkar</span>
+  </div>
+  <!--
+    <div>
+      <button id="add_player">Add player</button>
+      <button id="remove_player">Player eliminated</button> -->
+  <a href="#" class="reset">Reset</a>
+  <!-- </div>
+  <div><span>Number of players: </span></div> -->
+  <audio id="alarm" controls="controls">
+    <source src="http://soundjax.com/reddo/92132%5Egonghi.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+  <audio id="alarm_pause1" controls="controls">
+    <source src="http://soundjax.com/reddo/44563%5Eshowtime.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+  <audio id="alarm_pause2" controls="controls">
+    <source src="http://soundjax.com/reddo/33928%5Eabouttime.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+  <audio id="alarm_pause3" controls="controls">
+    <source src="http://soundjax.com/reddo/90798%5Eitspartytime.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+  </div>
+
+</div>
+</body>
+<audio id="alarm-elimination" controls="controls">
+  <source src="http://soundjax.com/reddo/84775%5Eshot1.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+</html>
