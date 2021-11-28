@@ -80,8 +80,9 @@ var Poker = (function () {
     },
     startClock: function () {
       var that = this
-
+      
       interval_id = setInterval(function () {
+        if(duration===900){timer-=1}
         that.updateClock(timer)
 
         timer -= 1
