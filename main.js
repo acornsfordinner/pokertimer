@@ -15,35 +15,35 @@ var Poker = (function () {
   let paus = false
   let pauseCounter = 0
   let round = 1
-  const  duration = 900
-  let  timer = duration
+  const duration = 900
+  let timer = duration
   const blinds = [
-      [1, 2],
-      [2, 4],
-      [3, 6],
-      [4, 8],
-      [5, 10],
-      [6, 12],
-      [8, 16],
-      [10, 20],
-      [15, 30],
-      [20, 40],
-      [30, 60],
-      [40, 80],
-      [60, 120],
-      [80, 160],
-      [120, 240],
-      [140, 280],
-      [180, 360],
-      [300, 600],
-      [300, 600],
-      [300, 600],
-      [300, 600],
-      [300, 600],
-      [300, 600],
-      [300, 600],
-      [300, 600],
-    ]
+    [1, 2],
+    [2, 4],
+    [3, 6],
+    [4, 8],
+    [5, 10],
+    [6, 12],
+    [8, 16],
+    [10, 20],
+    [15, 30],
+    [20, 40],
+    [30, 60],
+    [40, 80],
+    [60, 120],
+    [80, 160],
+    [120, 240],
+    [140, 280],
+    [180, 360],
+    [300, 600],
+    [300, 600],
+    [300, 600],
+    [300, 600],
+    [300, 600],
+    [300, 600],
+    [300, 600],
+    [300, 600],
+  ]
   let interval_id
 
   return {
@@ -80,9 +80,9 @@ var Poker = (function () {
     },
     startClock: function () {
       var that = this
-      
+
       interval_id = setInterval(function () {
-        if(timer===900){timer-=1}
+        if (timer === 900) { timer -= 1 }
         that.updateClock(timer)
 
         timer -= 1
@@ -326,6 +326,9 @@ $('#btn-remove-player').on('click', function () {
   }
 })
 $('#btn-add-on').on('click', function () {
+  if (active_players < 1) {
+    return
+  }
   add_on_count++
   calculate_prizepool()
   $('.add-on-count').html(`Add-ons: ${add_on_count}`)
@@ -335,6 +338,7 @@ $('#btn-add-on').on('click', function () {
 
 })
 $('#btn-rebuy').on('click', function () {
+  if (active_players < 1) return
   rebuy_count++
   calculate_prizepool()
   $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
