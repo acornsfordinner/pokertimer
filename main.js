@@ -1,3 +1,6 @@
+
+
+
 let clicklist = []
 
 const buyin_amount_sek = 100
@@ -310,7 +313,7 @@ $('#btn-remove-player').on('click', function () {
     if (active_players === 2) {
       $('#alarm-fanfare')[0].play()
       Poker.stopClock()
-      fireworks()
+      //fireworkers()
     }
     else {
       $('#alarm-elimination')[0].play()
@@ -370,6 +373,6 @@ $('#btn-undo').on('click', function () {
   }
 
 })
-function fireworks() {
-
+function fireworkers() {
+  fireworks.start()
 }
