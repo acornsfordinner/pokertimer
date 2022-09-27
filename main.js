@@ -139,8 +139,8 @@ var Poker = (function () {
     },
     updateBlinds: function (round) {
       if (paus) {
-        $('.small-blind').html('Paus')
-        $('.small-blind').html('Paus')
+        $('.small-blind').html('Break')
+        $('.big-blind').html('Break')
       } else {
         let round_blinds = blinds[round - 1] || blinds[blinds.length]
 
@@ -184,29 +184,29 @@ var Poker = (function () {
       // pauseCounter=0;
 
       if (pauseCounter === 4 && !paus) {
-        $('#round').html(`Nästa Nivå : ${round}`)
+        $('#round').html(`Next Level : ${round}`)
         paus = true
         pauseCounter = 0
-        $('.small-blind').html("Paus")
-        $('.big-blind').html("Paus")
-        $('.nextround-info').html(`Nästa nivå: ${blinds[round - 1][0]}/${blinds[round - 1][1]}`)
+        $('.small-blind').html("Break")
+        $('.big-blind').html("Break")
+        $('.nextround-info').html(`Next level: ${blinds[round - 1][0]}/${blinds[round - 1][1]}`)
 
 
       }
       else if (paus) {
         paus = false
-        $('#round').html('Nivå' + ' ' + round)
-        $('.nextround-info').html(`Nästa nivå: ${blinds[round][0]}/${blinds[round][1]}`)
+        $('#round').html('Level' + ' ' + round)
+        $('.nextround-info').html(`Next level: ${blinds[round][0]}/${blinds[round][1]}`)
 
 
       }
       else {
         $('#round').html('Nivå' + ' ' + round)
-        $('.nextround-info').html(`Nästa nivå: ${blinds[round][0]}/${blinds[round][1]}`)
+        $('.nextround-info').html(`Next level: ${blinds[round][0]}/${blinds[round][1]}`)
       }
 
       if (pauseCounter === 3 && !paus) {
-        $('.nextround-info').html(`Nästa nivå: Paus`)
+        $('.nextround-info').html(`Next level: Break`)
       }
     }
   }
