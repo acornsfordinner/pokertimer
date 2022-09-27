@@ -1,62 +1,68 @@
-.body{
-  height:100%;
+.body {
+  height: 100%;
   background-color: #2e1b09;
 }
-.sidebar-col{
+.sidebar-col {
   width: 22%;
   max-width: 22%;
-  height:100vh;
-  border-right:1px solid black;
+  height: 100vh;
+  border-right: 1px solid black;
   overflow: hidden;
 }
-.main-col{
-  width:78%;
+.main-col {
+  width: 78%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(#2c5a39 ,#2c3a20 ,#2e1b09 80%);
+  background: radial-gradient(#2c5a39, #2c3a20, #2e1b09 80%);
 }
-aside{
-  background: radial-gradient(at 100% 50%, #2e220e 10vh, #2e1b09 50%, #1b140b 100%);
+aside {
+  background: radial-gradient(
+    at 100% 50%,
+    #2e220e 10vh,
+    #2e1b09 50%,
+    #1b140b 100%
+  );
 }
-.btn{
-  font-size:30px;
-  margin:2px;
+.btn {
+  font-size: 30px;
+  margin: 2px;
   margin-left: 10px;
   border: 1px solid black;
 }
-.btn-oval{
-  border-radius:50%;
+.btn-oval {
+  border-radius: 50%;
   color: #2e1b09;
   background-color: darkgoldenrod;
 }
-.game-customization-box:first-child{
-  margin-top:20px;
-  width:100%;
+.game-customization-box:first-child {
+  margin-top: 20px;
+  width: 100%;
 }
-.holder-btn-oval{
-  display:flex;
+.holder-btn-oval {
+  display: flex;
   justify-content: center;
+  margin-right: 2px;
 }
-#btn-remove-player{
-  margin-top:20px;
-  border:2px groove white;
+#btn-remove-player {
+  margin-top: 20px;
+  border: 2px groove white;
 }
-.game-customization-box{
-  display:inline-block;
-  min-height:48%;
+.game-customization-box {
+  display: inline-block;
+  min-height: 48%;
 }
 
-.money-box{
-  height:48%;
+.money-box {
+  height: 48%;
   font-size: 27px;
-  margin-left:0px;
+  margin-left: 0px;
 }
-.avg-stack-count{
-  color:gold;
+.avg-stack-count {
+  color: gold;
 }
-.row-centered{
+.row-centered {
   justify-content: center;
-  text-align:center;
+  text-align: center;
   text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
 }
 
@@ -64,50 +70,50 @@ aside{
 {
   background: radial-gradient(#2c5a39 ,#2c3a20 ,#2e1b09 80%);
 } */
-*{
-  font-family: 'Sancreek', cursive;
-  color:wheat;  
-  user-select:none;
+* {
+  font-family: "Sancreek", cursive;
+  color: wheat;
+  user-select: none;
 }
-.data-title{
-  font-size:120px;
-  margin-bottom:40px;
+.data-title {
+  font-size: 120px;
+  margin-bottom: 40px;
   text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
 }
-.chip-roundchange{
-  color:blue;
-  margin-bottom:10px;
+.chip-roundchange {
+  color: blue;
+  margin-bottom: 10px;
   text-shadow: none;
 }
-#round{
-  color:wheat;
-  font-family: 'Pinyon Script', cursive;
+#round {
+  color: wheat;
+  font-family: "Pinyon Script", cursive;
   font-size: 70px;
 }
-.round-info{
-  display:flex;
+.round-info {
+  display: flex;
   justify-content: center;
 }
 
-.clock-divider{
-  color:gold;
+.clock-divider {
+  color: gold;
   justify-content: center;
   font-size: 400px;
   flex-grow: 1;
 }
 
-.clock-min,.clock-sec{
-  color:gold;
-  text-align:right;
-  font-size:400px;
+.clock-min,
+.clock-sec {
+  color: gold;
+  text-align: right;
+  font-size: 400px;
 }
-.clock-sec{
-  text-align:left;
+.clock-sec {
+  text-align: left;
 }
 #poker_play_pause a,
 #poker_previous_round a,
-#poker_next_round a
-{
+#poker_next_round a {
   color: #fff;
   display: inline-block;
   font-family: georgia;
@@ -116,20 +122,17 @@ aside{
   line-height: 80px;
   text-decoration: none;
   width: 80px;
-  text-align:center;
+  text-align: center;
 }
 
-
-#poker_play_pause a
-{
+#poker_play_pause a {
   color: #fff;
   background: red;
   border: 10px dotted #fff;
   border-radius: 50px;
 }
 
-#poker_play_pause .play span
- {
+#poker_play_pause .play span {
   border-color: transparent transparent transparent white;
   border-style: solid;
   border-width: 15px;
@@ -142,46 +145,40 @@ aside{
   top: 50%;
   width: 0px;
   bottom: 0px;
-} 
+}
 
-#poker_play_pause .pause
-{
+#poker_play_pause .pause {
   -ms-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
-
 }
 
-#poker_play_pause .pause span:before
-{
+#poker_play_pause .pause span:before {
   content: "=";
   font-size: 50px;
   position: relative;
   bottom: 13px;
 }
 
-#poker_previous_round{
-  text-align:right;
-  display:flex;
-  justify-content:right;
+#poker_previous_round {
+  text-align: right;
+  display: flex;
+  justify-content: right;
 }
-#poker_previous_round a
-{
+#poker_previous_round a {
   background: rgb(71, 105, 51);
   border: 10px dotted #fff;
   border-radius: 50px;
   align-items: center;
   display: flex;
   justify-content: center;
-  
 }
-#poker_next_round{
-  text-align:left;
+#poker_next_round {
+  text-align: left;
 }
-#poker_next_round a
-{
+#poker_next_round a {
   background: #333;
   border: 10px dotted #fff;
   border-radius: 50px;
@@ -190,8 +187,7 @@ aside{
   justify-content: center;
 }
 
-h2
-{
+h2 {
   color: #fff;
   font-family: georgia;
   font-size: 60px;
@@ -200,41 +196,36 @@ h2
   text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
 }
 
-#span-clock-filler{
-  position:relative;
-  width:500px;
-  display:block;
-  height:30px;
+#span-clock-filler {
+  position: relative;
+  width: 500px;
+  display: block;
+  height: 30px;
 }
-.clock
-{
+.clock {
   color: gold;
   font-family: georgia;
   font-size: 300px;
   margin-top: -85px;
-  margin-bottom:-85px;
+  margin-bottom: -85px;
   text-align: center;
-  position:relative;
+  position: relative;
   text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
-  display:  flex;
+  display: flex;
   justify-content: center;
 }
 
-#poker_blinds
-{
+#poker_blinds {
   text-align: center;
-  margin:-15px;
-
+  margin: -15px;
 }
 
-.blinds
-{
+.blinds {
   text-align: center;
-  margin:-25px;
+  margin: -25px;
 }
 
-.blinds span
-{
+.blinds span {
   color: gold;
   font-family: georgia;
   font-size: 120px;
@@ -242,8 +233,7 @@ h2
 }
 
 .settings,
-.reset
-{
+.reset {
   color: #fff;
   display: block;
   font-family: georgia;
@@ -260,33 +250,28 @@ h2
 }
 
 .settings:hover,
-.reset:hover
-{
+.reset:hover {
   opacity: 1;
 }
 
-.settings
-{
+.settings {
   float: left;
 }
 
-.reset-timer
-{
+.reset-timer {
   float: right;
-  margin-top:-20px;
-  margin-bottom:10px;
+  margin-top: -20px;
+  margin-bottom: 10px;
 }
-.reset-money
-{
-  display:flex;
-  justify-content:center;
-  margin-top:20px;
-  padding-top:20px;
-  margin-bottom:10px;
+.reset-money {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 10px;
 }
 
-audio
-{
+audio {
   display: none;
 }
 
