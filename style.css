@@ -1,108 +1,124 @@
-body
+.body{
+  height:100%;
+  background-color: #2e1b09;
+}
+.sidebar-col{
+  width: 22%;
+  max-width: 22%;
+  height:100vh;
+  border-right:1px solid black;
+  overflow: hidden;
+}
+.main-col{
+  width:78%;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(#2c5a39 ,#2c3a20 ,#2e1b09 80%);
+}
+aside{
+  background: radial-gradient(at 100% 50%, #2e220e 10vh, #2e1b09 50%, #1b140b 100%);
+}
+.btn{
+  font-size:30px;
+  margin:2px;
+  margin-left: 10px;
+  border: 1px solid black;
+}
+.btn-oval{
+  border-radius:50%;
+  color: #2e1b09;
+  background-color: darkgoldenrod;
+}
+.game-customization-box:first-child{
+  margin-top:20px;
+  width:100%;
+}
+.holder-btn-oval{
+  display:flex;
+  justify-content: center;
+}
+#btn-remove-player{
+  margin-top:20px;
+  border:2px groove white;
+}
+.game-customization-box{
+  display:inline-block;
+  min-height:48%;
+}
+
+.money-box{
+  height:48%;
+  font-size: 27px;
+  margin-left:0px;
+}
+.avg-stack-count{
+  color:gold;
+}
+.row-centered{
+  justify-content: center;
+  text-align:center;
+  text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
+}
+
+/* body
 {
   background: radial-gradient(#2c5a39 ,#2c3a20 ,#2e1b09 80%);
-  width: 99%;
-  height: 97vh;
-}
+} */
 *{
   font-family: 'Sancreek', cursive;
+  color:wheat;  
+  user-select:none;
 }
-.flex-container{
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-content:space-between;
-  
-}
-#data-title{
+.data-title{
   font-size:120px;
-  font-family: 'Sancreek', cursive;
-  color: wheat;
+  margin-bottom:40px;
+  text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
 }
-.title-div{
-  width:100%;
-  position:static;
-  text-align:center;
-  margin-bottom:-100px;
-}
-div > .chip-div{
-  position:relative;
-  display:block;
-  height:100px;
+.chip-roundchange{
+  color:blue;
+  margin-bottom:10px;
+  text-shadow: none;
 }
 #round{
   color:wheat;
   font-family: 'Pinyon Script', cursive;
   font-size: 70px;
 }
-#morkar{
-  font-family: 'Sancreek', cursive;
-}
-.chip-header #header-id{
-  color:wheat;
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-#poker_clock h1
-{
-  color: #000;
-  font-family: georgia;
-  font-family: 'Sancreek', cursive;
-
-  font-size: 40px;
-  font-style: italic;
-  padding-top: 30px;
-  opacity: 0.35;
-  text-align: center;
-  text-shadow: rgba(0, 0, 0, 1) 0px -1px 1px;
-}
-
-#poker_play_pause,
-#poker_previous_round,
-#poker_next_round
-{
-  width:100%;
-  left: 50%;
-  position: absolute;
+.round-info{
   display:flex;
-  flex-direction:column;
-  text-align: center;
-  
-  /* top: 80px; */
-  width: 100px;
+  justify-content: center;
 }
 
-#poker_play_pause span,
-#poker_previous_round span,
-#poker_next_round span
-{
-  
-  display: block;
-  font-family: georgia;
-  font-size: 18px;
-  margin-bottom: 5px;
+.clock-divider{
+  color:gold;
+  justify-content: center;
+  font-size: 400px;
+  flex-grow: 1;
 }
 
+.clock-min,.clock-sec{
+  color:gold;
+  text-align:right;
+  font-size:400px;
+}
+.clock-sec{
+  text-align:left;
+}
 #poker_play_pause a,
 #poker_previous_round a,
 #poker_next_round a
 {
   color: #fff;
-  display: block;
+  display: inline-block;
   font-family: georgia;
   font-size: 40px;
   height: 80px;
   line-height: 80px;
   text-decoration: none;
   width: 80px;
+  text-align:center;
 }
 
-#poker_play_pause
-{
-  margin-left: -350px;
-}
 
 #poker_play_pause a
 {
@@ -113,7 +129,7 @@ div > .chip-div{
 }
 
 #poker_play_pause .play span
-{
+ {
   border-color: transparent transparent transparent white;
   border-style: solid;
   border-width: 15px;
@@ -125,7 +141,8 @@ div > .chip-div{
   position: relative;
   top: 50%;
   width: 0px;
-}
+  bottom: 0px;
+} 
 
 #poker_play_pause .pause
 {
@@ -133,7 +150,8 @@ div > .chip-div{
   -moz-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   -o-transform: rotate(90deg);
-	transform: rotate(90deg);
+  transform: rotate(90deg);
+
 }
 
 #poker_play_pause .pause span:before
@@ -141,36 +159,37 @@ div > .chip-div{
   content: "=";
   font-size: 50px;
   position: relative;
-  bottom: 2px;
+  bottom: 13px;
 }
 
-#poker_next_round
-{
-  margin-left: 340px;
+#poker_previous_round{
+  text-align:right;
+  display:flex;
+  justify-content:right;
 }
-#poker_previous_round
-{
-  margin-left: 230px;
-}
-
-
 #poker_previous_round a
 {
   background: rgb(71, 105, 51);
   border: 10px dotted #fff;
   border-radius: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  
+}
+#poker_next_round{
+  text-align:left;
 }
 #poker_next_round a
 {
   background: #333;
   border: 10px dotted #fff;
   border-radius: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
-h1
-{
-  text-align:center;
-}
 h2
 {
   color: #fff;
@@ -192,23 +211,26 @@ h2
   color: gold;
   font-family: georgia;
   font-size: 300px;
-  margin-top: -80px;
+  margin-top: -85px;
+  margin-bottom:-85px;
   text-align: center;
   position:relative;
   text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
   display:  flex;
   justify-content: center;
-  /* padding-left: 31%; */
 }
 
 #poker_blinds
 {
   text-align: center;
+  margin:-15px;
+
 }
 
 .blinds
 {
   text-align: center;
+  margin:-25px;
 }
 
 .blinds span
@@ -217,16 +239,6 @@ h2
   font-family: georgia;
   font-size: 120px;
   text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
-}
-
-#poker_blinds > span
-{
-  color: wheat;
-  display: block;
-  font-family: 'Pinyon Script', cursive;
-  font-size: 50px;
-  margin-top: 10px;
-  text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
 }
 
 .settings,
@@ -258,9 +270,19 @@ h2
   float: left;
 }
 
-.reset
+.reset-timer
 {
   float: right;
+  margin-top:-20px;
+  margin-bottom:10px;
+}
+.reset-money
+{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+  padding-top:20px;
+  margin-bottom:10px;
 }
 
 audio
