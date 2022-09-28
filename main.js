@@ -201,7 +201,7 @@ var Poker = (function () {
 
       }
       else {
-        $('#round').html('Nivå' + ' ' + round)
+        $('#round').html('Level' + ' ' + round)
         $('.nextround-info').html(`Next level: ${blinds[round][0]}/${blinds[round][1]}`)
       }
 
