@@ -169,7 +169,7 @@ var Poker = (function () {
       }
     },
     updatePlayPauseButton: function () {
-      var pause_play_button = $('#poker_play_pause a')
+      var pause_play_button = $('#poker_play_pause_span a')
 
       if (this.isGamePaused()) {
         pause_play_button.removeClass('pause')
@@ -212,7 +212,7 @@ var Poker = (function () {
   }
 }())
 
-$('#poker_play_pause').on('click', function (event) {
+$('#poker_play_pause_span').on('click', function (event) {
   if (Poker.isGamePaused()) {
     Poker.startClock()
   } else {

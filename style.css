@@ -1,17 +1,20 @@
-.body {
-  height: 100%;
+body {
+  height: 100vh;
+  width: 100vw;
   background-color: #2e1b09;
+}
+body * {
+  font-size: 16px;
 }
 .sidebar-col {
   width: 22%;
   max-width: 22%;
-  height: 100vh;
   border-right: 1px solid black;
   overflow: hidden;
 }
 .main-col {
   width: 78%;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   background: radial-gradient(#2c5a39, #2c3a20, #2e1b09 80%);
 }
@@ -49,13 +52,18 @@ aside {
 }
 .game-customization-box {
   display: inline-block;
-  min-height: 48%;
+
+  max-height: 50vh;
 }
 
 .money-box {
-  height: 48%;
-  font-size: 27px;
+  max-height: 50vh;
+  font-size: 1.2em;
   margin-left: 0px;
+  padding-top:1em;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .avg-stack-count {
   color: gold;
@@ -76,8 +84,8 @@ aside {
   user-select: none;
 }
 .data-title {
-  font-size: 120px;
-  margin-bottom: 40px;
+  font-size: 4em;
+  margin-bottom: 0.2em;
   text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
 }
 .chip-roundchange {
@@ -98,7 +106,7 @@ aside {
 .clock-divider {
   color: gold;
   justify-content: center;
-  font-size: 400px;
+  font-size: 0.5em;
   flex-grow: 1;
 }
 
@@ -106,14 +114,14 @@ aside {
 .clock-sec {
   color: gold;
   text-align: right;
-  font-size: 400px;
+  font-size: 0.5em;
 }
 .clock-sec {
   text-align: left;
 }
-#poker_play_pause a,
-#poker_previous_round a,
-#poker_next_round a {
+#poker_play_pause_span a,
+#poker_previous_round_span a,
+#poker_next_round_span a {
   color: #fff;
   display: inline-block;
   font-family: georgia;
@@ -125,14 +133,14 @@ aside {
   text-align: center;
 }
 
-#poker_play_pause a {
+#poker_play_pause_span a {
   color: #fff;
   background: red;
   border: 10px dotted #fff;
   border-radius: 50px;
 }
 
-#poker_play_pause .play span {
+#poker_play_pause_span .play span {
   border-color: transparent transparent transparent white;
   border-style: solid;
   border-width: 15px;
@@ -147,7 +155,7 @@ aside {
   bottom: 0px;
 }
 
-#poker_play_pause .pause {
+#poker_play_pause_span .pause {
   -ms-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
@@ -155,19 +163,19 @@ aside {
   transform: rotate(90deg);
 }
 
-#poker_play_pause .pause span:before {
+#poker_play_pause_span .pause span:before {
   content: "=";
   font-size: 50px;
   position: relative;
   bottom: 13px;
 }
 
-#poker_previous_round {
+#poker_previous_round_span {
   text-align: right;
   display: flex;
   justify-content: right;
 }
-#poker_previous_round a {
+#poker_previous_round_span a {
   background: rgb(71, 105, 51);
   border: 10px dotted #fff;
   border-radius: 50px;
@@ -175,10 +183,10 @@ aside {
   display: flex;
   justify-content: center;
 }
-#poker_next_round {
+#poker_next_round_span {
   text-align: left;
 }
-#poker_next_round a {
+#poker_next_round_span a {
   background: #333;
   border: 10px dotted #fff;
   border-radius: 50px;
@@ -205,30 +213,37 @@ h2 {
 .clock {
   color: gold;
   font-family: georgia;
-  font-size: 300px;
-  margin-top: -85px;
-  margin-bottom: -85px;
+  height: fit-content;
+  font-size: 50vh;
+  margin-top: -0.2em;
+  margin-bottom: -0.2em;
   text-align: center;
   position: relative;
   text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
   display: flex;
   justify-content: center;
 }
+.clock * {
+  height: fit-content;
+}
 
+#nextround_info {
+  padding-top: 2em;
+}
 #poker_blinds {
   text-align: center;
-  margin: -15px;
 }
 
 .blinds {
   text-align: center;
-  margin: -25px;
+  height: fit-content;
+  margin-top: -2em;
 }
 
 .blinds span {
   color: gold;
   font-family: georgia;
-  font-size: 120px;
+  font-size: 7em;
   text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
 }
 
@@ -237,9 +252,7 @@ h2 {
   color: #fff;
   display: block;
   font-family: georgia;
-  font-size: 30px;
-  height: 40px;
-  margin: 20px;
+  font-size: 2em;
   opacity: 0.35;
   text-shadow: rgba(0, 0, 0, 1) 0px -1px 1px;
   text-decoration: none;
@@ -266,8 +279,8 @@ h2 {
 .reset-money {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 2px;
+  padding-top: 1px;
   margin-bottom: 10px;
 }
 
