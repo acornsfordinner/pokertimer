@@ -2,6 +2,8 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: #2e1b09;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 body * {
   font-size: 16px;
@@ -60,7 +62,7 @@ aside {
   max-height: 50vh;
   font-size: 1.2em;
   margin-left: 0px;
-  padding-top:1em;
+  margin-top:1em;
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
