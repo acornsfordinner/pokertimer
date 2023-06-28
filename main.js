@@ -295,7 +295,8 @@ function calculate_prizepool() {
 
 }
 
-$('#btn-add-player').on('click', function () {
+$('#butn-add-player').on('click', function () {
+  $('#alarm-coin')[0].play()
   player_count++
   active_players++
   calculate_prizepool()
@@ -307,7 +308,7 @@ $('#btn-add-player').on('click', function () {
 })
 
 
-$('#btn-remove-player').on('click', function () {
+$('#butn-remove-player').on('click', function () {
   if (active_players > 1) {
 
     if (active_players === 2) {
@@ -328,7 +329,7 @@ $('#btn-remove-player').on('click', function () {
 
   }
 })
-$('#btn-add-on').on('click', function () {
+$('#butn-add-on').on('click', function () {
   if (active_players < 1) {
     return
   }
@@ -340,7 +341,7 @@ $('#btn-add-on').on('click', function () {
   clicklist.push(this)
 
 })
-$('#btn-rebuy').on('click', function () {
+$('#butn-rebuy').on('click', function () {
   if (active_players < 1) return
   rebuy_count++
   calculate_prizepool()
@@ -350,14 +351,13 @@ $('#btn-rebuy').on('click', function () {
   clicklist.push(this)
 })
 
-$('#btn-undo').on('click', function () {
+$('#butn-undo').on('click', function () {
   clicklist.pop()
   //kör reset-funktionen
   $('.reset-money').click()
 
 
   for (let i = 0; i < clicklist.length; i++) {
-    console.log(clicklist[i])
 
     //kör funktionen specificerad i listan på plats i
     clicklist[i].click()

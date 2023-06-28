@@ -28,29 +28,35 @@ aside {
     #1b140b 100%
   );
 }
-.btn {
+.butn {
   font-size: 30px;
   margin: 2px;
   margin-left: 10px;
   border: 1px solid black;
 }
-.btn-oval {
-  border-radius: 50%;
+.butn-oval {
   color: #2e1b09;
   background-color: darkgoldenrod;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .game-customization-box:first-child {
   margin-top: 20px;
   width: 100%;
 }
-.holder-btn-oval {
+.holder-butn-oval {
   display: flex;
   justify-content: center;
   margin-right: 2px;
 }
-#btn-remove-player {
+#butn-remove-player {
   margin-top: 20px;
-  border: 2px groove white;
+  background-color: rgb(184, 63, 11);
+  
+}
+#butn-undo{
+  background-color: gray;
 }
 .game-customization-box {
   display: inline-block;
@@ -62,7 +68,8 @@ aside {
   max-height: 50vh;
   font-size: 1.2em;
   margin-left: 0px;
-  margin-top:1em;
+  margin-right:0px;
+  margin-top: 1em;
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -284,6 +291,7 @@ h2 {
   margin-top: 2px;
   padding-top: 1px;
   margin-bottom: 10px;
+  font-size:14px;
 }
 
 audio {
@@ -305,3 +313,73 @@ audio {
 .clearfix:after {
   clear: both;
 }
+@media(height<=500px){
+  .row-title{
+    display:none;
+  }
+}
+
+@media (height <= 900px) {
+  body * {
+    font-size: 16px;
+  }
+  /** Right Side **/
+
+  .chip-div {
+    margin-top: 2vh;
+  }
+  #round {
+    font-size: 10vh;
+  }
+
+  .blinds {
+    font-size: 2vh;
+  }
+  #nextround_info {
+    padding-top: 1vh;
+  }
+  .reset-timer {
+    font-size: 5vh;
+  }
+
+  /** left side **/
+
+  .game-customization-box {
+    max-height: fit-content;
+  }
+  .money-box {
+    border: 1px solid transparent   ;
+  }
+  .butn {
+    font-size: 14px;
+    margin: 2px;
+    margin-left: 10px;
+    border: 1px solid black;
+  }
+  .butn-oval {
+    border-radius: 0;
+    color: #2e1b09;
+    background-color: darkgoldenrod;
+  }
+  .game-customization-box:first-child {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  #butn-remove-player {
+    margin-top: 10px;
+  }
+}
+.butn:hover {
+  color: initial;
+  
+  border-color: initial;
+}
+/*@media (hover: hover) {
+  .butn:hover {
+    color: var(--bs-butn-hover-color);
+    background-color: var(--bs-butn-hover-bg);
+    border-color: var(--bs-butn-hover-border-color);
+  }
+}
+*/
