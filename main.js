@@ -218,6 +218,9 @@ $('#poker_play_pause_span').on('click', function (event) {
   } else {
     Poker.stopClock()
   }
+  if(round===1 && timer == duration){
+    $('#alarm-start')[0].play()
+  }
 
   // update play/pause button
   Poker.updatePlayPauseButton()
