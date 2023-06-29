@@ -383,3 +383,83 @@ audio {
   }
 }
 */
+
+@media screen and (orientation:portrait){
+  mainrow{ 
+    background-color:red;
+    -webkit-transform: rotate(90deg);
+    
+    -moz-transform: rotate(90deg);
+    
+    -o-transform: rotate(90deg);
+    
+    -ms-transform: rotate(90deg);
+    
+    transform: rotate(90deg);
+    width: 100vh;
+    height:100vw;
+   
+  }
+
+  .main-col {
+    width: 78%;
+    min-height: 100vw;
+    overflow: hidden;
+    background: radial-gradient(#2c5a39, #2c3a20, #2e1b09 80%);
+  }
+
+
+
+
+  .game-customization-box {
+    display: inline-block;
+  
+    max-height: 50vw;
+  }
+  .money-box {
+    max-height: 50vw;
+    font-size: 1.2em;
+    margin-left: 0px;
+    margin-right:0px;
+    margin-top: 1em;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .clock {
+    color: gold;
+    font-family: georgia;
+    height: fit-content;
+    font-size: 50vw;
+    margin-top: -0.2em;
+    margin-bottom: -0.2em;
+    text-align: center;
+    position: relative;
+    text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
+    display: flex;
+    justify-content: center;
+  }
+  .clock * {
+    height: fit-content;
+  }
+
+
+  
+  .chip-div {
+    margin-top: 2vw;
+  }
+  #round {
+    font-size: 10vw;
+  }
+
+  .blinds {
+    font-size: 2vw;
+  }
+  #nextround_info {
+    padding-top: 1vw;
+  }
+  .reset-timer {
+    font-size: 5vw;
+  }
+}
