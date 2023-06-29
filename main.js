@@ -318,6 +318,7 @@ $('#btn-add-player').on('click', function () {
 $('#btn-rebuy').on('click', function () {
   if (active_players < 1) {
     $('#btn-rebuy').addClass("grey_pulse")
+    $('#alarm-no')[0].play()
     return
   }
   $('#btn-rebuy').addClass("yellow_pulse")
@@ -333,6 +334,7 @@ $('#btn-rebuy').on('click', function () {
 $('#btn-add-on').on('click', function () {
   if (active_players < 1) {
     $('#btn-add-on').addClass("grey_pulse")
+    $('#alarm-no')[0].play()
     return
   }
   $('#btn-add-on').addClass("yellow_pulse")
@@ -367,13 +369,14 @@ $('#btn-remove-player').on('click', function () {
     clicklist.push(this)
   } else{
     $('#btn-remove-player').addClass("orange_pulse")
-
+    $('#alarm-no')[0].play()
   }
 })
 
 $('#btn-undo').on('click', function () {
   if(clicklist.length === 0){
     $('#btn-undo').addClass("grey_red_pulse")
+    $('#alarm-no')[0].play()
     return
   } else{
     $('#btn-undo').addClass("grey_green_pulse")
