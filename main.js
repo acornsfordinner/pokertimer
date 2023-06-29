@@ -299,8 +299,11 @@ function calculate_prizepool() {
   }
 
 }
-
-$('#butn-add-player').on('click', function () {
+$('#btn-add-player').on('click', function () {
+  
+  $('#btn-add-player').addClass("yellow_pulse")
+ 
+  
   $('#alarm-coin')[0].play()
   player_count++
   active_players++
@@ -312,10 +315,41 @@ $('#butn-add-player').on('click', function () {
   clicklist.push(this)
 })
 
+$('#btn-rebuy').on('click', function () {
+  if (active_players < 1) {
+    $('#btn-rebuy').addClass("grey_pulse")
+    return
+  }
+  $('#btn-rebuy').addClass("yellow_pulse")
+  $('#alarm-heartbeats')[0].play()
+  rebuy_count++
+  calculate_prizepool()
+  $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
+  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
+  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
+  clicklist.push(this)
+})
 
-$('#butn-remove-player').on('click', function () {
+$('#btn-add-on').on('click', function () {
+  if (active_players < 1) {
+    $('#btn-add-on').addClass("grey_pulse")
+    return
+  }
+  $('#btn-add-on').addClass("yellow_pulse")
+  $('#alarm-sword')[0].play()
+  
+  add_on_count++
+  calculate_prizepool()
+  $('.add-on-count').html(`Add-ons: ${add_on_count}`)
+  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
+  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
+  clicklist.push(this)
+})
+
+$('#btn-remove-player').on('click', function () {
   if (active_players > 1) {
-
+    $('#btn-remove-player').addClass("red_pulse")
+    
     if (active_players === 2) {
       $('#alarm-fanfare')[0].play()
       Poker.stopClock()
@@ -331,34 +365,19 @@ $('#butn-remove-player').on('click', function () {
     $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
     $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
     clicklist.push(this)
+  } else{
+    $('#btn-remove-player').addClass("orange_pulse")
 
   }
 })
-$('#butn-add-on').on('click', function () {
-  if (active_players < 1) {
+
+$('#btn-undo').on('click', function () {
+  if(clicklist.length === 0){
+    $('#btn-undo').addClass("grey_red_pulse")
     return
+  } else{
+    $('#btn-undo').addClass("grey_green_pulse")
   }
-  $('#alarm-heartbeats')[0].play()
-  add_on_count++
-  calculate_prizepool()
-  $('.add-on-count').html(`Add-ons: ${add_on_count}`)
-  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
-  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
-  clicklist.push(this)
-
-})
-$('#butn-rebuy').on('click', function () {
-  if (active_players < 1) return
-  $('#alarm-sword')[0].play()
-  rebuy_count++
-  calculate_prizepool()
-  $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
-  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
-  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
-  clicklist.push(this)
-})
-
-$('#butn-undo').on('click', function () {
   clicklist.pop()
   $('#alarm-oops')[0].play()
   //kör reset-funktionen
@@ -371,16 +390,63 @@ $('#butn-undo').on('click', function () {
     clicklist[i].click()
     clicklist.pop()
 
-    /**  $('nav').on('click', '.nav-item', function () {
-      if ($('#navbarSupportedContent').hasClass('show')) {
-        $('#data-burgarn').click();
-      }
-    })
-
-  } */
   }
 
 })
 function fireworkers() {
   fireworks.start()
+}
+
+
+
+$('#btn-add-player').on("animationstart",listener)
+$('#btn-add-player').on("animationend",listener)
+
+
+$('#btn-rebuy').on("animationstart",listener)
+$('#btn-rebuy').on("animationend",listener)
+
+$('#btn-add-on').on("animationstart",listener)
+$('#btn-add-on').on("animationend",listener)
+
+$('#btn-remove-player').on("animationstart",listener)
+$('#btn-remove-player').on("animationend",listener)
+
+$('#btn-undo').on("animationstart",listener)
+$('#btn-undo').on("animationend",listener)
+
+
+function listener(event) {
+
+  switch (event.type) {
+    case "animationstart":
+      break
+
+    case "animationend":
+
+      if (event.target.id === "btn-add-player") {
+        $('#btn-add-player').removeClass("yellow_pulse")
+        $('#btn-add-player').removeClass("focus_pulse")
+      } 
+       else if (event.target.id === "btn-rebuy"){
+        $('#btn-rebuy').removeClass("yellow_pulse")
+        $('#btn-rebuy').removeClass("grey_pulse")
+      }
+       else if (event.target.id === "btn-add-on"){
+        $('#btn-add-on').removeClass("yellow_pulse")
+        $('#btn-add-on').removeClass("grey_pulse")
+      }
+       else if (event.target.id === "btn-remove-player"){
+        $('#btn-remove-player').removeClass("red_pulse")
+        $('#btn-remove-player').removeClass("orange_pulse")
+      } 
+      else if (event.target.id === "btn-undo"){
+        $('#btn-undo').removeClass("grey_green_pulse")
+        $('#btn-undo').removeClass("grey_red_pulse")
+      } 
+      break
+
+    default:
+      break
+  }
 }
