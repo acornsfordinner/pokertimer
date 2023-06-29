@@ -82,6 +82,10 @@ var Poker = (function () {
       timer = duration
     },
     startClock: function () {
+      if (round === 1 && timer == duration) {
+        $('#alarm-start')[0].play()
+      }
+
       var that = this
 
       interval_id = setInterval(function () {
@@ -218,9 +222,7 @@ $('#poker_play_pause_span').on('click', function (event) {
   } else {
     Poker.stopClock()
   }
-  if(round===1 && timer == duration){
-    $('#alarm-start')[0].play()
-  }
+
 
   // update play/pause button
   Poker.updatePlayPauseButton()
@@ -336,6 +338,7 @@ $('#butn-add-on').on('click', function () {
   if (active_players < 1) {
     return
   }
+  $('#alarm-heartbeats')[0].play()
   add_on_count++
   calculate_prizepool()
   $('.add-on-count').html(`Add-ons: ${add_on_count}`)
@@ -346,6 +349,7 @@ $('#butn-add-on').on('click', function () {
 })
 $('#butn-rebuy').on('click', function () {
   if (active_players < 1) return
+  $('#alarm-sword')[0].play()
   rebuy_count++
   calculate_prizepool()
   $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
@@ -356,6 +360,7 @@ $('#butn-rebuy').on('click', function () {
 
 $('#butn-undo').on('click', function () {
   clicklist.pop()
+  $('#alarm-oops')[0].play()
   //kör reset-funktionen
   $('.reset-money').click()
 
