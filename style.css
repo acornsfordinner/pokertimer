@@ -10,6 +10,18 @@ body * {
   font-size: 16px;
 }
 
+stats {
+  display: none;
+}
+
+.showing-stats {
+  display: flex;
+}
+
+.hide-me {
+  display: none;
+}
+
 .sidebar-col {
   width: 22%;
   max-width: 22%;
@@ -40,7 +52,7 @@ aside {
 
 .butn-oval {
   color: #2e1b09;
-  background-color: darkgoldenrod;
+  background-color: rgb(184, 134, 10);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,9 +70,8 @@ aside {
 }
 
 #btn-remove-player {
-  margin-top: 20px;
   background-color: rgb(184, 63, 11);
-
+  margin-bottom: 20px;
 }
 
 #btn-undo {
@@ -400,7 +411,7 @@ audio {
   }
 
   #btn-remove-player {
-    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 
@@ -565,56 +576,96 @@ audio {
   animation-duration: 0.5s;
 }
 
-@keyframes grey_green_pulse{
-  0% { 
+@keyframes grey_green_pulse {
+  0% {
     background-color: rgb(128, 128, 128);
-  }10% { 
-    background-color: rgb(127, 158, 118);
-  }20% {
-         background-color: rgb(90, 126, 80);
+  }
 
-  }30% { 
-    background-color: rgb(70, 133, 53);
-  }40% { 
-    background-color: rgb(52, 159, 23);
-  }50% { 
-    background-color: rgb(39, 179, 0);
-  }60% { 
-    background-color: rgb(95, 205, 64);
-  }70% { 
-    background-color: rgb(105, 192, 81);
-  }80% { 
-    background-color: rgb(113, 172, 97);
-  }90% { 
+  10% {
     background-color: rgb(127, 158, 118);
-  }100% { 
+  }
+
+  20% {
+    background-color: rgb(90, 126, 80);
+
+  }
+
+  30% {
+    background-color: rgb(70, 133, 53);
+  }
+
+  40% {
+    background-color: rgb(52, 159, 23);
+  }
+
+  50% {
+    background-color: rgb(39, 179, 0);
+  }
+
+  60% {
+    background-color: rgb(95, 205, 64);
+  }
+
+  70% {
+    background-color: rgb(105, 192, 81);
+  }
+
+  80% {
+    background-color: rgb(113, 172, 97);
+  }
+
+  90% {
+    background-color: rgb(127, 158, 118);
+  }
+
+  100% {
     background-color: rgb(128, 128, 128);
   }
 }
 
-@keyframes grey_red_pulse{
-  0% { 
+@keyframes grey_red_pulse {
+  0% {
     background-color: rgb(128, 128, 128);
-  }10% { 
-    background-color: rgb(158, 118, 118);
-  }20% {
-         background-color: rgb(126, 80, 80);
+  }
 
-  }30% { 
-    background-color: rgb(133, 53, 53);
-  }40% { 
-    background-color: rgb(159, 23, 23);
-  }50% { 
-    background-color: rgb(179, 0, 0);
-  }60% { 
-    background-color: rgb(205, 64, 64);
-  }70% { 
-    background-color: rgb(192, 81, 81);
-  }80% { 
-    background-color: rgb(172, 97, 97);
-  }90% { 
+  10% {
     background-color: rgb(158, 118, 118);
-  }100% { 
+  }
+
+  20% {
+    background-color: rgb(126, 80, 80);
+
+  }
+
+  30% {
+    background-color: rgb(133, 53, 53);
+  }
+
+  40% {
+    background-color: rgb(159, 23, 23);
+  }
+
+  50% {
+    background-color: rgb(179, 0, 0);
+  }
+
+  60% {
+    background-color: rgb(205, 64, 64);
+  }
+
+  70% {
+    background-color: rgb(192, 81, 81);
+  }
+
+  80% {
+    background-color: rgb(172, 97, 97);
+  }
+
+  90% {
+    background-color: rgb(158, 118, 118);
+  }
+
+  100% {
     background-color: rgb(128, 128, 128);
   }
 }
