@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'sancreekregular';
+  src: url('Fonts/sancreek-regular-webfont.woff2') format('woff2'),
+       url('Fonts/sancreek-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'pinyon_scriptregular';
+  src: url('Fonts/pinyonscript-regular-webfont.woff2') format('woff2'),
+       url('Fonts/pinyonscript-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   height: 100vh;
   width: 100vw;
@@ -331,22 +347,6 @@ h2 {
 
 audio {
   display: none;
-}
-
-/* clearfix */
-.clearfix {
-  *zoom: 1;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  line-height: 0;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both;
 }
 
 @media(height<=465px) {
