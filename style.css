@@ -85,6 +85,10 @@ aside {
   margin-right: 2px;
 }
 
+#btn-settings {
+  background-color: rgb(184, 134, 10);
+}
+
 #btn-remove-player {
   background-color: rgb(184, 63, 11);
   margin-bottom: 20px;
@@ -126,7 +130,7 @@ aside {
   background: radial-gradient(#2c5a39 ,#2c3a20 ,#2e1b09 80%);
 } */
 * {
-  font-family: "Sancreek", cursive;
+  font-family: "sancreekregular", cursive;
   color: wheat;
   user-select: none;
 }
@@ -145,7 +149,7 @@ aside {
 
 #round {
   color: wheat;
-  font-family: "Pinyon Script", cursive;
+  font-family: "pinyon_scriptregular", cursive;
   font-size: 70px;
 }
 
