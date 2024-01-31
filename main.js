@@ -236,21 +236,42 @@ $('#poker_previous_round').on('click', function (event) {
 })
 
 $('body').on('keypress', function (event) {
-  if (Poker.isGamePaused()) {
-    Poker.startClock()
-  } else {
-    Poker.stopClock()
+  if (event.originalEvent.code === "Space") {
+    if (Poker.isGamePaused()) {
+      Poker.startClock()
+    } else {
+      Poker.stopClock()
+    }
+    // update play/pause button
+    Poker.updatePlayPauseButton()
   }
-
-
-  // update play/pause button
-  Poker.updatePlayPauseButton()
 })
 
 
 $('.reset-timer').on('click', function (event) {
   Poker.reset()
 })
+$('#btn-settings').on('click', function (event) {
+  hideGameCustomization()
+})
+$('#btn-settings-close').on('click', function (event) {
+  hideGameSettings()
+})
+function hideGameCustomization() {
+  $('.game-customization-box > .holder-butn-oval').hide(200, "swing", showGameSettings)
+}
+
+function showGameSettings() {
+  $('.game-customization-box > .game-settings').show(200, "swing")
+}
+
+function hideGameSettings() {
+  $('.game-customization-box > .game-settings').hide(200, "swing", showGameCustomization)
+}
+function showGameCustomization() {
+  $('.game-customization-box > .holder-butn-oval').show(200, "swing")
+}
+
 
 
 $('#reset-money').on('click', function (event) {

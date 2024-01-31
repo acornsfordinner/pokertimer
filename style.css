@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'sancreekregular';
   src: url('Fonts/sancreek-regular-webfont.woff2') format('woff2'),
-       url('Fonts/sancreek-regular-webfont.woff') format('woff');
+    url('Fonts/sancreek-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -9,7 +9,7 @@
 @font-face {
   font-family: 'pinyon_scriptregular';
   src: url('Fonts/pinyonscript-regular-webfont.woff2') format('woff2'),
-       url('Fonts/pinyonscript-regular-webfont.woff') format('woff');
+    url('Fonts/pinyonscript-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -78,6 +78,38 @@ aside {
   margin-top: 20px;
   width: 100%;
 }
+
+.game-customization-box>.holder-butn-oval {
+  display: flex;
+}
+
+.game-customization-box>.game-settings {
+  display: none;
+  flex-direction: column;
+
+}
+#settings-header {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width:inherit;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.game-customization-box>.game-settings input {
+  background-color: inherit;
+  border-radius: 50px;
+  padding-left: 10px;
+  padding-right:10px;
+  text-align:end;
+  width:100px;
+}
+
 
 .holder-butn-oval {
   display: flex;

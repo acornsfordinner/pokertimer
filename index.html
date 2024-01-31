@@ -39,11 +39,50 @@
           <button id="btn-remove-player" type="button" class="butn butn-oval">
             Eliminate <img src="Icons/target.svg" height="20px" width="20px" />
           </button> </span>
+        <span class="row holder-butn-oval" title="Show/Hide Settings">
+          <button id="btn-settings" type="button" class="butn butn-primary butn-oval">
+            Settings<img src="Icons/cog.svg" height="20px" width="20px" />
+          </button>
+        </span>
 
         <span class="row holder-butn-oval" title="Undo previous action">
           <button type="button" id="btn-undo" class="butn butn-oval">
             Undo <img src="Icons/undo.svg" height="20px" width="20px" />
           </button>
+        </span>
+        <span class="game-settings">
+          <div id="settings-header">
+            <span>SETTINGS</span>
+            <button id="btn-settings-close" type="button">
+              <img src="Icons/cog.svg" height="20px" width="20px" />
+            </button>
+          </div>
+          <div class="settings-item">
+            <label for="settings-buyin-amount">Buy-In amount
+        </label>
+        <input type="number" id="settings-buyin-amount" name="settings-buyin-amount" min="1" list="defaultNumbers" />
+        </div>
+        <div class="settings-item">
+          <label for="settings-starting-chips">Starting Chips</label>
+            <input type="number" id="settings-starting-chips" name="settings-starting-chips" list="defaultNumbers" min="1" />
+        </div>
+        <div class="settings-item">
+          <label for="settings-payout-positions">Payout Positions</label>
+            <input type="number" id="settings-payout-positions" name="payout-positions" min="1" />
+        </div>
+        <div class="settings-item">
+          <label for="settings-level-time">Time per level</label>
+            <input type="number" id="settings-level-time" name="settings-level-time" min="1" />
+        </div>
+
+        <datalist id="defaultNumbers">
+          <option value="50"></option>
+          <option value="100"></option>
+          <option value="150"></option>
+          <option value="200"></option>
+        </datalist>
+        
+
         </span>
       </aside-top>
       <aside-bottom class="row money-box">
