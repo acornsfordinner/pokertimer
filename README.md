@@ -1,4 +1,4 @@
 Pokertimer
 
-node .\index.js to run backend
+node .\index.js to run backend.
 

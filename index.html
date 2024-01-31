@@ -1,154 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Tornets Poker</title>
-    <script src="jquery.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Pinyon+Script&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://fonts.googleapis.com/css?family=Sancreek&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Asset&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap"
-      rel="stylesheet"
-    />
 
-    <script defer src="main.js"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Tornets Poker</title>
+  <script src="jquery.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+  <script defer src="main.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-  <body class="container-fluid">
-    <mainrow class="row">
-      <aside class="sidebar col sidebar-col">
-        <aside-top class="game-customization-box">
-          <span id="btn-add-player" class="row holder-btn-oval">
-            <button type="button" class="btn btn-success btn-oval">
-              Add player
-            </button>
-          </span>
-
-          <span class="row holder-btn-oval">
-            <button type="button" id="btn-rebuy" class="btn btn-info btn-oval">
-              Rebuy
-            </button>
-          </span>
-          <span class="row holder-btn-oval">
-            <button
-              type="button"
-              id="btn-add-on"
-              class="btn btn-primary btn-oval"
-            >
-              Add-on
-            </button>
-          </span>
-          <span class="row holder-btn-oval">
-            <button type="button" id="btn-remove-player" class="btn btn-danger">
-              Eliminate player
-            </button> </span
-          ><span class="row holder-btn-oval">
-            <button type="button" id="btn-undo" class="btn btn-secondary">
-              Undo
-            </button>
-          </span>
-        </aside-top>
-        <aside-bottom class="row money-box">
-          <span class="col">
-            <span class="row player-count">Starting Players : 0</span>
-            <span class="row active-player-count">Players left: 0</span>
-            <span class="row rebuy-count">Rebuys: 0</span>
-            <span class="row add-on-count">Add-ons: 0</span>
-            <span class="row avg-stack-count h2">Avg. stack: 0</span>
-            <span class="row prizepool-count">Total Prizepool: </span>
-            <span class="row payout-count">Payout: </span>
-
-            <a href="#" class="reset reset-money">Reset money</a>
-          </span>
-        </aside-bottom>
-      </aside>
-      <main class="col main-col">
-        <span class="row row-centered row-title">
-          <h1 class="data-title">~ Poker ~</h1>
+<body class="container-fluid">
+  <mainrow class="row">
+    <aside class="sidebar col sidebar-col">
+      <aside-top class="game-customization-box">
+        <span class="row holder-butn-oval">
+          <button id="btn-add-player" type="button" class="butn butn-success butn-oval" title="Add a player">
+            Add player <img src="Icons/add.svg" height="20px" width="20px" />
+          </button>
         </span>
-        <span class="row row-centered chip-div">
-          <span class="col chip-roundchange" id="poker_previous_round">
-            <span class="chip-header byta-runda" id="header-id">
-              <a href="#" title="Previous Round">↶</a>
-            </span>
-          </span>
 
-          <span class="col" id="poker_play_pause">
-            <span class="chip-header" id="header-id"></span>
-            <a href="#" title="Play/Pause" class="play">
-              <span></span>
-            </a>
-          </span>
+        <span class="row holder-butn-oval" title="Add a rebuy">
+          <button id="btn-rebuy" type="button" class="butn butn-info butn-oval" title="Add a rebuy">
+            Rebuy <img src="Icons/rebuy.svg" height="20px" width="20px" />
+          </button>
+        </span>
 
-          <span class="col chip-roundchange" id="poker_next_round">
-            <span class="chip-header byta-runda" id="header-id">
-              <a href="#" title="Next Round">↷</a>
-            </span>
+        <span class="row holder-butn-oval" title="Add an add-on">
+          <button id="btn-add-on" type="button" class="butn butn-primary butn-oval">
+            Add-on <img src="Icons/addon.svg" height="20px" width="20px" />
+          </button>
+        </span>
+
+        <span class="row holder-butn-oval" title="Eliminate one player">
+          <button id="btn-remove-player" type="button" class="butn butn-oval">
+            Eliminate <img src="Icons/target.svg" height="20px" width="20px" />
+          </button> </span>
+
+        <span class="row holder-butn-oval" title="Undo previous action">
+          <button type="button" id="btn-undo" class="butn butn-oval">
+            Undo <img src="Icons/undo.svg" height="20px" width="20px" />
+          </button>
+        </span>
+      </aside-top>
+      <aside-bottom class="row money-box">
+        <span class="col">
+          <span class="row player-count">Starting Players: 0</span>
+          <span class="row active-player-count">Players left: 0</span>
+          <span class="row rebuy-count">Rebuys: 0</span>
+          <span class="row add-on-count">Add-ons: 0</span>
+          <span class="row avg-stack-count h2">Avg. stack: 0</span>
+          <span class="row prizepool-count">Total Prizepool: </span>
+          <span class="row payout-count"></span>
+
+          <a href="#" id="reset-money" class="reset reset-money">Reset money</a>
+        </span>
+      </aside-bottom>
+    </aside>
+    <main class="col main-col">
+      <span class="row row-centered row-title">
+        <h1 class="data-title">~Tornets Poker ~</h1>
+      </span>
+      <span class="row row-centered chip-div">
+        <span class="col chip-roundchange" id="poker_previous_round_span">
+          <span class="chip-header byta-runda" id="poker_previous_round">
+            <a href="#" title="Previous Round">↶</a>
           </span>
         </span>
 
-        <span class="row row-centered round-info">
-          <h2 id="round">Level 1</h2>
+        <span class="col" id="poker_play_pause_span">
+          <span class="chip-header" id="poker_play_pause"></span>
+          <a href="#" title="Play/Pause" class="play">
+            <span></span>
+          </a>
         </span>
-        <span class="row row-centered blinds-text" id="morkar">Blinds</span>
-        <span id="poker_blinds" class="row row-centered">
-          <span class="blinds">
-            <span class="small-blind">1</span>
-            <span class="separator">/</span>
-            <span class="big-blind">2</span>
+
+        <span class="col chip-roundchange" id="poker_next_round_span">
+          <span class="chip-header byta-runda" id="poker_next_round">
+            <a href="#" title="Next Round">↷</a>
           </span>
         </span>
-        <span class="row row-centered clock">
-          <span class="col col-5 clock-min">15</span>
-          <span class="col col-1 clock-divider">:</span>
-          <span class="col col-5 clock-sec">00</span>
+      </span>
+
+      <span class="row row-centered round-info">
+        <h2 id="round">Level 1</h2>
+      </span>
+      <span class="row row-centered blinds-text" id="morkar">Blinds</span>
+      <span id="poker_blinds" class="row row-centered">
+        <span class="blinds">
+          <span class="small-blind">1</span>
+          <span class="separator">/</span>
+          <span class="big-blind">2</span>
         </span>
+      </span>
+      <span class="row row-centered clock">
+        <span class="col col-5 clock-min">15</span>
+        <span class="col col-1 clock-divider">:</span>
+        <span class="col col-5 clock-sec">00</span>
+      </span>
 
-        <span class="row row-centered nextround-info"> Next level: 2/4 </span>
-        <a href="#" class="reset reset-timer">Reset timer</a>
-      </main>
-    </mainrow>
-  </body>
-  <audio id="alarm" controls="controls">
-    <source src="/Pokertimer/Audio/gong.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="alarm-elimination" controls="controls">
-    <source src="/Pokertimer/Audio/gunshot.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
+      <span class="row row-centered nextround-info" id="nextround_info">
+        Next level: 2/4
+      </span>
+      <a href="#" class="reset reset-timer">Reset timer</a>
+    </main>
+  </mainrow>
+</body>
+<audio id="alarm">
+  <source src="/Audio/gong.mp3" type="audio/mpeg" />
+</audio>
+<audio id="alarm-elimination">
+  <source src="/Audio/gunshot.mp3" type="audio/mpeg" />
+</audio>
+<audio id="alarm-coin">
+  <source src="/Audio/coin.mp3" type="audio/mpeg" />
+</audio>
+<audio id="alarm-start">
+  <source src="/Audio/start.mp3" type="audio/mpeg" />
+</audio>
+<audio id="alarm-fanfare">
+  <source src="/Audio/fanfare.mp3" type="audio/mpeg" />
+</audio>
+<audio id="alarm-heartbeats">
+  <source src="/Audio/heartbeats.mp3" type="audio/mpeg" />
+</audio>
+<audio id="alarm-sword">
+  <source src="/Audio/sword.mp3" type="audio/mpeg" />
+</audio>
+<audio id="alarm-oops">
+  <source src="/Audio/oops.aac" type="audio/aac" />
+</audio>
+<audio id="alarm-no">
+  <source src="/Audio/no.aac" type="audio/aac" />
+</audio>
 
-  <audio id="alarm-fanfare" controls="controls">
-    <source src="/Pokertimer/Audio/fanfare.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
 </html>

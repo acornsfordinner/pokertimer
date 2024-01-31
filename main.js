@@ -82,6 +82,10 @@ var Poker = (function () {
       timer = duration
     },
     startClock: function () {
+      if (round === 1 && timer == duration) {
+        $('#alarm-start')[0].play()
+      }
+
       var that = this
 
       interval_id = setInterval(function () {
@@ -169,7 +173,7 @@ var Poker = (function () {
       }
     },
     updatePlayPauseButton: function () {
-      var pause_play_button = $('#poker_play_pause a')
+      var pause_play_button = $('#poker_play_pause_span a')
 
       if (this.isGamePaused()) {
         pause_play_button.removeClass('pause')
@@ -201,7 +205,7 @@ var Poker = (function () {
 
       }
       else {
-        $('#round').html('Nivå' + ' ' + round)
+        $('#round').html('Level' + ' ' + round)
         $('.nextround-info').html(`Next level: ${blinds[round][0]}/${blinds[round][1]}`)
       }
 
@@ -212,12 +216,13 @@ var Poker = (function () {
   }
 }())
 
-$('#poker_play_pause').on('click', function (event) {
+$('#poker_play_pause_span').on('click', function (event) {
   if (Poker.isGamePaused()) {
     Poker.startClock()
   } else {
     Poker.stopClock()
   }
+
 
   // update play/pause button
   Poker.updatePlayPauseButton()
@@ -247,7 +252,8 @@ $('.reset-timer').on('click', function (event) {
   Poker.reset()
 })
 
-$('.reset-money').on('click', function (event) {
+
+$('#reset-money').on('click', function (event) {
   player_count = 0
   active_players = 0
   add_on_count = 0
@@ -294,8 +300,14 @@ function calculate_prizepool() {
   }
 
 }
+$('#btn-add-player').on('click', function (eventet) {
 
-$('#btn-add-player').on('click', function () {
+  if (eventet.currentTarget.value !== "undoing") {
+    $('#btn-add-player').addClass("yellow_pulse")
+    $('#alarm-coin')[0].play()
+  }
+
+
   player_count++
   active_players++
   calculate_prizepool()
@@ -306,42 +318,16 @@ $('#btn-add-player').on('click', function () {
   clicklist.push(this)
 })
 
-
-$('#btn-remove-player').on('click', function () {
-  if (active_players > 1) {
-
-    if (active_players === 2) {
-      $('#alarm-fanfare')[0].play()
-      Poker.stopClock()
-      //fireworkers()
-    }
-    else {
-      $('#alarm-elimination')[0].play()
-    }
-
-    active_players--
-    calculate_prizepool()
-    $('.active-player-count').html(`Players left: ${active_players}`)
-    $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
-    $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
-    clicklist.push(this)
-
-  }
-})
-$('#btn-add-on').on('click', function () {
+$('#btn-rebuy').on('click', function (eventet) {
   if (active_players < 1) {
+    $('#btn-rebuy').addClass("grey_pulse")
+    $('#alarm-no')[0].play()
     return
   }
-  add_on_count++
-  calculate_prizepool()
-  $('.add-on-count').html(`Add-ons: ${add_on_count}`)
-  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
-  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
-  clicklist.push(this)
-
-})
-$('#btn-rebuy').on('click', function () {
-  if (active_players < 1) return
+  if (eventet.currentTarget.value !== "undoing") {
+    $('#btn-rebuy').addClass("yellow_pulse")
+    $('#alarm-heartbeats')[0].play()
+  }
   rebuy_count++
   calculate_prizepool()
   $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
@@ -350,29 +336,130 @@ $('#btn-rebuy').on('click', function () {
   clicklist.push(this)
 })
 
+$('#btn-add-on').on('click', function (eventet) {
+  if (active_players < 1) {
+    $('#btn-add-on').addClass("grey_pulse")
+    $('#alarm-no')[0].play()
+    return
+  }
+  if (eventet.currentTarget.value !== "undoing") {
+    $('#btn-add-on').addClass("yellow_pulse")
+    $('#alarm-sword')[0].play()
+  }
+
+  add_on_count++
+  calculate_prizepool()
+  $('.add-on-count').html(`Add-ons: ${add_on_count}`)
+  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
+  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
+  clicklist.push(this)
+})
+
+$('#btn-remove-player').on('click', function (eventet) {
+  if (active_players > 1) {
+    if (eventet.currentTarget.value !== "undoing") {
+      $('#btn-remove-player').addClass("red_pulse")
+
+      if (active_players === 2) {
+        $('#alarm-fanfare')[0].play()
+        Poker.stopClock()
+        //fireworkers()
+      }
+      else {
+        $('#alarm-elimination')[0].play()
+      }
+    }
+    active_players--
+    calculate_prizepool()
+    $('.active-player-count').html(`Players left: ${active_players}`)
+    $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
+    $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
+    clicklist.push(this)
+  } else {
+    if (eventet.currentTarget.value !== "undoing") {
+      $('#btn-remove-player').addClass("orange_pulse")
+      $('#alarm-no')[0].play()
+    }
+  }
+})
+
 $('#btn-undo').on('click', function () {
+  if (clicklist.length === 0) {
+    $('#btn-undo').addClass("grey_red_pulse")
+    $('#alarm-no')[0].play()
+    return
+  } else {
+    $('#btn-undo').addClass("grey_green_pulse")
+  }
   clicklist.pop()
+  $('#alarm-oops')[0].play()
   //kör reset-funktionen
-  $('.reset-money').click()
+  $('#reset-money').click()
 
 
   for (let i = 0; i < clicklist.length; i++) {
-    console.log(clicklist[i])
-
-    //kör funktionen specificerad i listan på plats i
+    // skip the sounds and animations
+    clicklist[i].value = "undoing"
     clicklist[i].click()
+    clicklist[i].value = ""
     clicklist.pop()
-
-    /**  $('nav').on('click', '.nav-item', function () {
-      if ($('#navbarSupportedContent').hasClass('show')) {
-        $('#data-burgarn').click();
-      }
-    })
-
-  } */
   }
 
 })
 function fireworkers() {
   fireworks.start()
+}
+
+
+
+$('#btn-add-player').on("animationstart", listener)
+$('#btn-add-player').on("animationend", listener)
+
+
+$('#btn-rebuy').on("animationstart", listener)
+$('#btn-rebuy').on("animationend", listener)
+
+$('#btn-add-on').on("animationstart", listener)
+$('#btn-add-on').on("animationend", listener)
+
+$('#btn-remove-player').on("animationstart", listener)
+$('#btn-remove-player').on("animationend", listener)
+
+$('#btn-undo').on("animationstart", listener)
+$('#btn-undo').on("animationend", listener)
+
+
+function listener(event) {
+
+  switch (event.type) {
+    case "animationstart":
+      break
+
+    case "animationend":
+
+      if (event.target.id === "btn-add-player") {
+        $('#btn-add-player').removeClass("yellow_pulse")
+        $('#btn-add-player').removeClass("focus_pulse")
+      }
+      else if (event.target.id === "btn-rebuy") {
+        $('#btn-rebuy').removeClass("yellow_pulse")
+        $('#btn-rebuy').removeClass("grey_pulse")
+      }
+      else if (event.target.id === "btn-add-on") {
+        $('#btn-add-on').removeClass("yellow_pulse")
+        $('#btn-add-on').removeClass("grey_pulse")
+      }
+      else if (event.target.id === "btn-remove-player") {
+        $('#btn-remove-player').removeClass("red_pulse")
+        $('#btn-remove-player').removeClass("orange_pulse")
+      }
+      else if (event.target.id === "btn-undo") {
+        $('#btn-undo').removeClass("grey_green_pulse")
+        $('#btn-undo').removeClass("grey_red_pulse")
+      }
+      break
+
+    default:
+      break
+  }
 }

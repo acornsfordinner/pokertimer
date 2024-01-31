@@ -1,65 +1,124 @@
-.body {
-  height: 100%;
-  background-color: #2e1b09;
+@font-face {
+  font-family: 'sancreekregular';
+  src: url('Fonts/sancreek-regular-webfont.woff2') format('woff2'),
+       url('Fonts/sancreek-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
+
+@font-face {
+  font-family: 'pinyon_scriptregular';
+  src: url('Fonts/pinyonscript-regular-webfont.woff2') format('woff2'),
+       url('Fonts/pinyonscript-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #2e1b09;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body * {
+  font-size: 16px;
+}
+
+stats {
+  display: none;
+}
+
+.showing-stats {
+  display: flex;
+}
+
+.hide-me {
+  display: none;
+}
+
 .sidebar-col {
   width: 22%;
   max-width: 22%;
-  height: 100vh;
   border-right: 1px solid black;
   overflow: hidden;
 }
+
 .main-col {
   width: 78%;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   background: radial-gradient(#2c5a39, #2c3a20, #2e1b09 80%);
 }
+
 aside {
-  background: radial-gradient(
-    at 100% 50%,
-    #2e220e 10vh,
-    #2e1b09 50%,
-    #1b140b 100%
-  );
+  background: radial-gradient(at 100% 50%,
+      #2e220e 10vh,
+      #2e1b09 50%,
+      #1b140b 100%);
 }
-.btn {
+
+.butn {
   font-size: 30px;
   margin: 2px;
   margin-left: 10px;
   border: 1px solid black;
 }
-.btn-oval {
-  border-radius: 50%;
+
+.butn-oval {
   color: #2e1b09;
-  background-color: darkgoldenrod;
+  background-color: rgb(184, 134, 10);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 .game-customization-box:first-child {
   margin-top: 20px;
   width: 100%;
 }
-.holder-btn-oval {
+
+.holder-butn-oval {
   display: flex;
   justify-content: center;
   margin-right: 2px;
 }
-#btn-remove-player {
-  margin-top: 20px;
-  border: 2px groove white;
+
+#btn-settings {
+  background-color: rgb(184, 134, 10);
 }
+
+#btn-remove-player {
+  background-color: rgb(184, 63, 11);
+  margin-bottom: 20px;
+}
+
+#btn-undo {
+  background-color: gray;
+}
+
 .game-customization-box {
   display: inline-block;
-  min-height: 48%;
+
+  max-height: 50vh;
 }
 
 .money-box {
-  height: 48%;
-  font-size: 27px;
+  max-height: 50vh;
+  font-size: 1.2em;
   margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 1em;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+
 .avg-stack-count {
   color: gold;
 }
+
 .row-centered {
   justify-content: center;
   text-align: center;
@@ -71,25 +130,29 @@ aside {
   background: radial-gradient(#2c5a39 ,#2c3a20 ,#2e1b09 80%);
 } */
 * {
-  font-family: "Sancreek", cursive;
+  font-family: "sancreekregular", cursive;
   color: wheat;
   user-select: none;
 }
+
 .data-title {
-  font-size: 120px;
-  margin-bottom: 40px;
+  font-size: 4em;
+  margin-bottom: 0.2em;
   text-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
 }
+
 .chip-roundchange {
   color: blue;
   margin-bottom: 10px;
   text-shadow: none;
 }
+
 #round {
   color: wheat;
-  font-family: "Pinyon Script", cursive;
+  font-family: "pinyon_scriptregular", cursive;
   font-size: 70px;
 }
+
 .round-info {
   display: flex;
   justify-content: center;
@@ -98,7 +161,7 @@ aside {
 .clock-divider {
   color: gold;
   justify-content: center;
-  font-size: 400px;
+  font-size: 0.5em;
   flex-grow: 1;
 }
 
@@ -106,14 +169,16 @@ aside {
 .clock-sec {
   color: gold;
   text-align: right;
-  font-size: 400px;
+  font-size: 0.5em;
 }
+
 .clock-sec {
   text-align: left;
 }
-#poker_play_pause a,
-#poker_previous_round a,
-#poker_next_round a {
+
+#poker_play_pause_span a,
+#poker_previous_round_span a,
+#poker_next_round_span a {
   color: #fff;
   display: inline-block;
   font-family: georgia;
@@ -125,14 +190,14 @@ aside {
   text-align: center;
 }
 
-#poker_play_pause a {
+#poker_play_pause_span a {
   color: #fff;
   background: red;
   border: 10px dotted #fff;
   border-radius: 50px;
 }
 
-#poker_play_pause .play span {
+#poker_play_pause_span .play span {
   border-color: transparent transparent transparent white;
   border-style: solid;
   border-width: 15px;
@@ -147,7 +212,7 @@ aside {
   bottom: 0px;
 }
 
-#poker_play_pause .pause {
+#poker_play_pause_span .pause {
   -ms-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
@@ -155,19 +220,20 @@ aside {
   transform: rotate(90deg);
 }
 
-#poker_play_pause .pause span:before {
+#poker_play_pause_span .pause span:before {
   content: "=";
   font-size: 50px;
   position: relative;
   bottom: 13px;
 }
 
-#poker_previous_round {
+#poker_previous_round_span {
   text-align: right;
   display: flex;
   justify-content: right;
 }
-#poker_previous_round a {
+
+#poker_previous_round_span a {
   background: rgb(71, 105, 51);
   border: 10px dotted #fff;
   border-radius: 50px;
@@ -175,10 +241,12 @@ aside {
   display: flex;
   justify-content: center;
 }
-#poker_next_round {
+
+#poker_next_round_span {
   text-align: left;
 }
-#poker_next_round a {
+
+#poker_next_round_span a {
   background: #333;
   border: 10px dotted #fff;
   border-radius: 50px;
@@ -202,12 +270,14 @@ h2 {
   display: block;
   height: 30px;
 }
+
 .clock {
   color: gold;
   font-family: georgia;
-  font-size: 300px;
-  margin-top: -85px;
-  margin-bottom: -85px;
+  height: fit-content;
+  font-size: 50vh;
+  margin-top: -0.2em;
+  margin-bottom: -0.2em;
   text-align: center;
   position: relative;
   text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
@@ -215,20 +285,28 @@ h2 {
   justify-content: center;
 }
 
+.clock * {
+  height: fit-content;
+}
+
+#nextround_info {
+  padding-top: 2em;
+}
+
 #poker_blinds {
   text-align: center;
-  margin: -15px;
 }
 
 .blinds {
   text-align: center;
-  margin: -25px;
+  height: fit-content;
+  margin-top: -2em;
 }
 
 .blinds span {
   color: gold;
   font-family: georgia;
-  font-size: 120px;
+  font-size: 7em;
   text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
 }
 
@@ -237,9 +315,7 @@ h2 {
   color: #fff;
   display: block;
   font-family: georgia;
-  font-size: 30px;
-  height: 40px;
-  margin: 20px;
+  font-size: 2em;
   opacity: 0.35;
   text-shadow: rgba(0, 0, 0, 1) 0px -1px 1px;
   text-decoration: none;
@@ -263,30 +339,735 @@ h2 {
   margin-top: -20px;
   margin-bottom: 10px;
 }
+
 .reset-money {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 2px;
+  padding-top: 1px;
   margin-bottom: 10px;
+  font-size: 14px;
 }
 
 audio {
   display: none;
 }
 
-/* clearfix */
-.clearfix {
-  *zoom: 1;
+@media(height<=465px) {
+  .row-title {
+    display: none;
+  }
 }
 
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  line-height: 0;
-  content: "";
+@media (height <=900px) {
+  body * {
+    font-size: 16px;
+  }
+
+  /** Right Side **/
+
+  .chip-div {
+    margin-top: 2vh;
+  }
+
+  #round {
+    font-size: 10vh;
+  }
+
+  .blinds {
+    font-size: 2vh;
+  }
+
+  #nextround_info {
+    padding-top: 1vh;
+  }
+
+  .reset-timer {
+    font-size: 5vh;
+  }
+
+  /** left side **/
+
+  .game-customization-box {
+    max-height: fit-content;
+  }
+
+  .money-box {
+    border: 1px solid transparent;
+  }
+
+  .butn {
+    font-size: 14px;
+    margin: 2px;
+    margin-left: 10px;
+    border: 1px solid black;
+  }
+
+  .butn-oval {
+    border-radius: 0;
+    color: #2e1b09;
+    background-color: darkgoldenrod;
+  }
+
+  .game-customization-box:first-child {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  #btn-remove-player {
+    margin-bottom: 10px;
+  }
 }
 
-.clearfix:after {
-  clear: both;
+.butn:hover {
+  color: initial;
+
+  border-color: initial;
+}
+
+/*@media (hover: hover) {
+  .butn:hover {
+    color: var(--bs-butn-hover-color);
+    background-color: var(--bs-butn-hover-bg);
+    border-color: var(--bs-butn-hover-border-color);
+  }
+}
+*/
+
+@media screen and (orientation:portrait) {
+  body.container-fluid {
+    width: 100vw;
+    height: 100vh;
+    background-color: #25180a;
+  }
+
+  mainrow.row {
+
+    display: flex;
+    flex-direction: column-reverse;
+
+  }
+
+  .main-col {
+    width: 100%;
+    height: fit-content;
+    min-height: unset;
+    overflow: hidden;
+    background: radial-gradient(#2c5a39, #2c3a20, #2e1b09 80%);
+  }
+
+
+
+  .sidebar-col {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border-right: 1px solid black;
+    overflow-y: scroll;
+  }
+
+  .game-customization-box {
+    display: inline-block;
+
+  }
+
+
+  .money-box {
+    font-size: 1.2em;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 1em;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+
+
+
+  .clock {
+    color: gold;
+    font-family: georgia;
+    height: fit-content;
+    font-size: 50vw;
+    margin-top: -0.2em;
+    margin-bottom: -0.2em;
+    text-align: center;
+    position: relative;
+    text-shadow: rgba(0, 0, 0, 1) 0px 2px 2px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .clock * {
+    height: fit-content;
+  }
+
+
+
+  .chip-div {
+    margin-top: 2vw;
+  }
+
+  #round {
+    font-size: 10vw;
+  }
+
+  .blinds {
+    font-size: 2vw;
+  }
+
+  #nextround_info {
+    padding-top: 1vw;
+  }
+
+  .reset-timer {
+    font-size: 5vw;
+
+  }
+
+}
+
+@media screen and (orientation:portrait) and (width<=500px) {
+  .row-title {
+    display: none;
+  }
+}
+
+/* ANIMATIONS */
+
+
+.yellow_pulse {
+  animation-name: yellow_pulse;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+}
+
+.focus_pulse {
+  animation-name: yellow_pulse;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+}
+
+.grey_pulse {
+  animation-name: grey_pulse;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+
+}
+
+.red_pulse {
+  animation-name: red_curtain;
+  animation-iteration-count: 1;
+  animation-duration: 2s;
+}
+
+.orange_pulse {
+  animation-name: orange_pulse;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+}
+
+.grey_red_pulse {
+  animation-name: grey_red_pulse;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+}
+
+.grey_green_pulse {
+  animation-name: grey_green_pulse;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+}
+
+@keyframes grey_green_pulse {
+  0% {
+    background-color: rgb(128, 128, 128);
+  }
+
+  10% {
+    background-color: rgb(127, 158, 118);
+  }
+
+  20% {
+    background-color: rgb(90, 126, 80);
+
+  }
+
+  30% {
+    background-color: rgb(70, 133, 53);
+  }
+
+  40% {
+    background-color: rgb(52, 159, 23);
+  }
+
+  50% {
+    background-color: rgb(39, 179, 0);
+  }
+
+  60% {
+    background-color: rgb(95, 205, 64);
+  }
+
+  70% {
+    background-color: rgb(105, 192, 81);
+  }
+
+  80% {
+    background-color: rgb(113, 172, 97);
+  }
+
+  90% {
+    background-color: rgb(127, 158, 118);
+  }
+
+  100% {
+    background-color: rgb(128, 128, 128);
+  }
+}
+
+@keyframes grey_red_pulse {
+  0% {
+    background-color: rgb(128, 128, 128);
+  }
+
+  10% {
+    background-color: rgb(158, 118, 118);
+  }
+
+  20% {
+    background-color: rgb(126, 80, 80);
+
+  }
+
+  30% {
+    background-color: rgb(133, 53, 53);
+  }
+
+  40% {
+    background-color: rgb(159, 23, 23);
+  }
+
+  50% {
+    background-color: rgb(179, 0, 0);
+  }
+
+  60% {
+    background-color: rgb(205, 64, 64);
+  }
+
+  70% {
+    background-color: rgb(192, 81, 81);
+  }
+
+  80% {
+    background-color: rgb(172, 97, 97);
+  }
+
+  90% {
+    background-color: rgb(158, 118, 118);
+  }
+
+  100% {
+    background-color: rgb(128, 128, 128);
+  }
+}
+
+@keyframes yellow_pulse {
+  0% {
+    background-color: rgb(187, 138, 11);
+    ;
+  }
+
+  10% {
+    background-color: rgb(200, 144, 11);
+  }
+
+  20% {
+    background-color: rgb(210, 150, 11);
+  }
+
+  30% {
+    background-color: rgb(225, 160, 11);
+  }
+
+  40% {
+    background-color: rgb(245, 170, 11);
+  }
+
+  50% {
+    background-color: rgb(255, 183, 11);
+  }
+
+  60% {
+    background-color: rgb(245, 170, 11);
+  }
+
+  70% {
+    background-color: rgb(225, 160, 11);
+  }
+
+  80% {
+    background-color: rgb(210, 150, 11);
+  }
+
+  90% {
+    background-color: rgb(200, 144, 11);
+  }
+
+  100% {
+    background-color: rgb(187, 138, 11);
+  }
+}
+
+@keyframes orange_pulse {
+  0% {
+    background-color: rgb(184, 63, 11);
+  }
+
+  10% {
+    background-color: rgb(171, 69, 26);
+  }
+
+  20% {
+    background-color: rgb(135, 69, 40);
+  }
+
+  30% {
+    background-color: rgb(125, 72, 50);
+  }
+
+  40% {
+    background-color: rgb(113, 71, 53);
+  }
+
+  50% {
+    background-color: rgb(106, 74, 60);
+  }
+
+  60% {
+    background-color: rgb(113, 71, 53);
+  }
+
+  70% {
+    background-color: rgb(125, 72, 50);
+  }
+
+  80% {
+    background-color: rgb(135, 69, 40);
+  }
+
+  90% {
+    background-color: rgb(171, 69, 26);
+  }
+
+  100% {
+    background-color: rgb(184, 63, 11);
+  }
+}
+
+@keyframes red_curtain {
+  0% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 0%);
+  }
+
+  1% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 4%);
+  }
+
+  2% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 8%);
+  }
+
+  2% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 12%);
+  }
+
+  4% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 16%);
+  }
+
+  5% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 20%);
+  }
+
+  6% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 24%);
+  }
+
+  7% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 28%);
+  }
+
+  8% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 32%);
+  }
+
+  9% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 36%);
+  }
+
+  10% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 40%);
+  }
+
+  11% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 44%);
+  }
+
+  12% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 48%);
+  }
+
+  13% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 52%);
+  }
+
+  14% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 56%);
+  }
+
+  15% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 60%);
+  }
+
+  16% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 64%);
+  }
+
+  17% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 68%);
+  }
+
+  18% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 72%);
+  }
+
+  19% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 76%);
+  }
+
+  20% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 80);
+  }
+
+  21% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 84);
+  }
+
+  22% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 88);
+  }
+
+  23% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 92);
+  }
+
+  24% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 96);
+  }
+
+  25% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 100%);
+  }
+
+  26% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 104%);
+  }
+
+  27% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 108%);
+  }
+
+  28% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 112%);
+  }
+
+  2% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 116%);
+  }
+
+  30% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 120%);
+  }
+
+  31% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 124%);
+  }
+
+  32% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 128%);
+  }
+
+  33% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 132%);
+  }
+
+  34% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 136%);
+  }
+
+  35% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 140%);
+  }
+
+  36% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 144%);
+  }
+
+  37% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 148%);
+  }
+
+  38% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 152%);
+  }
+
+  39% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 156%);
+  }
+
+  40% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 160%);
+  }
+
+  41% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 164%);
+  }
+
+  42% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 168%);
+  }
+
+  43% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 172%);
+  }
+
+  44% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 176%);
+  }
+
+  45% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 180%);
+  }
+
+  46% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 184%);
+  }
+
+  47% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 188%);
+  }
+
+  48% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 192%);
+  }
+
+  49% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 196%);
+  }
+
+  50% {
+    background: linear-gradient(rgb(255, 0, 0), rgb(184, 63, 11) 200%);
+  }
+
+  53% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 10%);
+  }
+
+  55% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 20%);
+  }
+
+  60% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 40%);
+  }
+
+  65% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 60%);
+
+  }
+
+  70% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 80%);
+
+  }
+
+  75% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 100%);
+
+  }
+
+  80% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 120%);
+
+  }
+
+  85% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 140%);
+
+  }
+
+  90% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 160%);
+
+  }
+
+  95% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 180%);
+
+  }
+
+  100% {
+    background: linear-gradient(rgb(184, 63, 11), rgb(255, 0, 0) 200%);
+
+  }
+
+}
+
+@keyframes grey_pulse {
+  0% {
+    background-color: rgb(187, 138, 11);
+  }
+
+  10% {
+    background-color: rgb(166, 119, 11);
+  }
+
+  20% {
+    background-color: rgb(147, 110, 26);
+  }
+
+  30% {
+    background-color: rgb(135, 105, 35);
+  }
+
+  40% {
+    background-color: rgb(111, 90, 47);
+  }
+
+  50% {
+    background-color: rgb(79, 74, 62);
+  }
+
+  60% {
+    background-color: rgb(111, 90, 47);
+  }
+
+  70% {
+    background-color: rgb(135, 105, 35);
+  }
+
+  80% {
+    background-color: rgb(147, 110, 26);
+  }
+
+  90% {
+    background-color: rgb(166, 119, 11);
+  }
+
+  100% {
+    background-color: rgb(187, 138, 11);
+  }
 }
