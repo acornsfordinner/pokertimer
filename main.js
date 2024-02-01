@@ -312,6 +312,7 @@ $('#reset-money').on('click', function (event) {
   $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
   $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
   $('.payout-count').html('')
+  saveStateToLocalStorage()
 })
 
 function calculate_prizepool() {
@@ -381,7 +382,7 @@ function calculate_prizepool() {
     } else {
       let infinite_payouts = ""
       let sillyPayout = Math.round(prizepool / payout_positions)
-      let sillyPercentage = (prizepool/payout_positions)*0.1
+      let sillyPercentage = (player_count/payout_positions).toFixed(2)
       for (let i = 1; i <= payout_positions; i++) {
         
         infinite_payouts = infinite_payouts.concat(`
