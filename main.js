@@ -2,7 +2,6 @@
 
 
 let clicklist = []
-
 let buyin_amount = 100
 let start_stack = 200
 let player_count = 0
@@ -12,8 +11,9 @@ let rebuy_count = 0
 let chipcount = 0
 let prizepool = 0
 let avg_stack_count = 0
-let custom_itm_count = 1;
-let duration = 900;
+let custom_itm_count = ""
+let duration = 900
+let undoer = false
 
 
 var Poker = (function () {
@@ -315,33 +315,83 @@ $('#reset-money').on('click', function (event) {
 })
 
 function calculate_prizepool() {
+  //custom_itm_count
+  let payout_positions = 0
+  if (custom_itm_count == "" || !custom_itm_count || custom_itm_count == 0) {
+    // if nr of payout positions is set to auto
+    if (player_count < 4) {
+      payout_positions = 1
+    }
+    if (player_count < 7) {
+      payout_positions = 2
+    } else if (player_count >= 7 && player_count <= 12) {
+      payout_positions = 3
+    } else if (player_count > 12 && player_count <= 16) {
+      payout_positions = 4
+    } else {
+      payout_positions = 5
+    }
+  } else if (custom_itm_count > player_count) {
+    // not more payouts than players
+    payout_positions = player_count
+  } else {
+    // sure, why not, infinite payouts
+    payout_positions = custom_itm_count
+  }
+
+
+
   if (player_count > 0) {
     chipcount = start_stack * (player_count + rebuy_count + add_on_count)
     avg_stack_count = Math.round(chipcount / active_players)
     prizepool = (player_count + add_on_count + rebuy_count) * buyin_amount
-    if (player_count < 4) {
+
+
+
+    if (payout_positions === 1) {
       $('.payout-count').html(`Payout:<br/>
     <br/>
     1st place: ${Math.round(prizepool)}Kr (100%)<br/>`)
-    } else if (player_count < 7) {
+    } else if (payout_positions === 2) {
       $('.payout-count').html(`Payout:<br>
       <br>
       1st place: ${Math.round(prizepool * 0.70)}Kr (70%)<br>
       2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)`)
-    } else if (player_count >= 7 && player_count <= 16) {
+    } else if (payout_positions === 3) {
       $('.payout-count').html(`Payout:<br>
       <br>
       1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
       2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)<br>
       3rd place: ${Math.round(prizepool * 0.20)}Kr (20%)`)
-    } else if (player_count > 16) {
+    } else if (payout_positions === 4) {
       $('.payout-count').html(`Payout:<br>
       <br>
       1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
       2nd place: ${Math.round(prizepool * 0.25)}Kr (25%)<br>
-      2nd place: ${Math.round(prizepool * 0.15)}Kr (15%)<br>
+      3rd place: ${Math.round(prizepool * 0.15)}Kr (15%)<br>
       4th place: ${Math.round(prizepool * 0.10)}Kr (10%)`)
+    } else if (payout_positions === 5) {
+      $('.payout-count').html(`Payout:<br>
+      <br>
+      1st place: ${Math.round(prizepool * 0.40)}Kr (40%)<br>
+      2nd place: ${Math.round(prizepool * 0.25)}Kr (25%)<br>
+      3rd place: ${Math.round(prizepool * 0.20)}Kr (20%)<br>
+      4th place: ${Math.round(prizepool * 0.10)}Kr (10%)<br>
+      5th place: ${Math.round(prizepool * 0.05)}Kr (5%)`)
+    } else {
+      let infinite_payouts = ""
+      let sillyPayout = Math.round(prizepool / payout_positions)
+      let sillyPercentage = (prizepool/payout_positions)*0.1
+      for (let i = 1; i <= payout_positions; i++) {
+        
+        infinite_payouts = infinite_payouts.concat(`
+      ${i}${((i.toString().charAt(i.toString().length - 1) == "1") && i != 11) ? "st" : (i.toString().charAt(i.toString().length - 1) == "2") && i != 12 ? "nd" : (i.toString().charAt(i.toString().length - 1) == "3") && i != 13 ? "rd" : "th"} place: ${sillyPayout}Kr (${sillyPercentage}%)<br>
+      `)
+      }
+      $('.payout-count').html(`Payout:<br>
+        <br>${infinite_payouts}`)
     }
+
 
     $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
     $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
@@ -354,16 +404,16 @@ function calculate_prizepool() {
 }
 $('#btn-add-player').on('click', function (eventet) {
 
-  if (eventet.currentTarget.value !== "undoing") {
+  if (!undoer) {
     $('#btn-add-player').addClass("yellow_pulse")
     $('#alarm-coin')[0].play()
   }
+  clicklist.push(this.id)
 
 
   player_count++
   active_players++
   calculate_prizepool()
-  clicklist.push(this)
 })
 
 $('#btn-rebuy').on('click', function (eventet) {
@@ -372,13 +422,13 @@ $('#btn-rebuy').on('click', function (eventet) {
     $('#alarm-no')[0].play()
     return
   }
-  if (eventet.currentTarget.value !== "undoing") {
+  if (!undoer) {
     $('#btn-rebuy').addClass("yellow_pulse")
     $('#alarm-heartbeats')[0].play()
   }
+  clicklist.push(this.id)
   rebuy_count++
   calculate_prizepool()
-  clicklist.push(this)
 })
 
 $('#btn-add-on').on('click', function (eventet) {
@@ -387,19 +437,18 @@ $('#btn-add-on').on('click', function (eventet) {
     $('#alarm-no')[0].play()
     return
   }
-  if (eventet.currentTarget.value !== "undoing") {
+  if (!undoer) {
     $('#btn-add-on').addClass("yellow_pulse")
     $('#alarm-sword')[0].play()
   }
-
+  clicklist.push(this.id)
   add_on_count++
   calculate_prizepool()
-  clicklist.push(this)
 })
 
 $('#btn-remove-player').on('click', function (eventet) {
   if (active_players > 1) {
-    if (eventet.currentTarget.value !== "undoing") {
+    if (!undoer) {
       $('#btn-remove-player').addClass("red_pulse")
 
       if (active_players === 2) {
@@ -411,11 +460,11 @@ $('#btn-remove-player').on('click', function (eventet) {
         $('#alarm-elimination')[0].play()
       }
     }
+    clicklist.push(this.id)
     active_players--
     calculate_prizepool()
-    clicklist.push(this)
   } else {
-    if (eventet.currentTarget.value !== "undoing") {
+    if (!undoer) {
       $('#btn-remove-player').addClass("orange_pulse")
       $('#alarm-no')[0].play()
     }
@@ -423,6 +472,7 @@ $('#btn-remove-player').on('click', function (eventet) {
 })
 
 $('#btn-undo').on('click', function () {
+  undoer = true
   if (clicklist.length === 0) {
     $('#btn-undo').addClass("grey_red_pulse")
     $('#alarm-no')[0].play()
@@ -430,6 +480,7 @@ $('#btn-undo').on('click', function () {
   } else {
     $('#btn-undo').addClass("grey_green_pulse")
   }
+  // change .pop to "fake a click on the item with this id
   clicklist.pop()
   $('#alarm-oops')[0].play()
   //kör reset-funktionen
@@ -437,13 +488,15 @@ $('#btn-undo').on('click', function () {
 
 
   for (let i = 0; i < clicklist.length; i++) {
+
     // skip the sounds and animations
     clicklist[i].value = "undoing"
-    clicklist[i].click()
+    $('#' + clicklist[i]).click()
     clicklist[i].value = ""
     clicklist.pop()
   }
-
+  saveStateToLocalStorage()
+  undoer = false
 })
 function fireworkers() {
   fireworks.start()
@@ -509,7 +562,7 @@ function saveSettingsToLocalStorage() {
   localStorage.setItem("Buy-In", $('#settings-buyin-amount').val())
   localStorage.setItem("Chips", $('#settings-starting-chips').val())
   localStorage.setItem("ITM", $('#settings-payout-positions').val())
-  localStorage.setItem("Lvl_duration", $('#settings-level-time').val())
+  localStorage.setItem("Lvl_duration", $('#settings-level-time').val() * 60)
 
   getSettingsFromLocalStorage()
 
@@ -519,17 +572,19 @@ function getSettingsFromLocalStorage() {
 
   buyin_amount = Number(localStorage.getItem("Buy-In") || 100)
   start_stack = Number(localStorage.getItem("Chips") || 100)
-  custom_itm_count = Number(localStorage.getItem("ITM") || 1)
+  custom_itm_count = Number(localStorage.getItem("ITM") || "")
   duration = Number(localStorage.getItem("Lvl_duration") || 900)
 
   $('#settings-buyin-amount').val(buyin_amount)
   $('#settings-starting-chips').val(start_stack)
-  $('#settings-payout-positions').val(custom_itm_count)
-  $('#settings-level-time').val(duration)
+  $('#settings-payout-positions').val(custom_itm_count > 0 ? custom_itm_count : "")
+
+  $('#settings-level-time').val(duration / 60)
   calculate_prizepool()
 }
 
 function saveStateToLocalStorage() {
+  localStorage.setItem("clicklist", JSON.stringify(clicklist))
   localStorage.setItem("player_count", player_count)
   localStorage.setItem("active_players", active_players)
   localStorage.setItem("rebuy_count", rebuy_count)
@@ -540,6 +595,9 @@ function saveStateToLocalStorage() {
 }
 
 function getStateFromLocalStorage() {
+
+  clicklist = localStorage.getItem("clicklist") ? JSON.parse(localStorage.getItem("clicklist")) : []
+
   player_count = Number(localStorage.getItem("player_count") || 0)
   active_players = Number(localStorage.getItem("active_players") || 0)
   rebuy_count = Number(localStorage.getItem("rebuy_count") || 0)
