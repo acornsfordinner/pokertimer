@@ -3,8 +3,8 @@
 
 let clicklist = []
 
-const buyin_amount_sek = 100
-const start_stack = 200
+let buyin_amount = 100
+let start_stack = 200
 let player_count = 0
 let active_players = 0
 let add_on_count = 0
@@ -12,13 +12,19 @@ let rebuy_count = 0
 let chipcount = 0
 let prizepool = 0
 let avg_stack_count = 0
+let custom_itm_count = 1;
+let duration = 900;
 
 
 var Poker = (function () {
+  getStateFromLocalStorage()
+  getSettingsFromLocalStorage()
+
   let paus = false
   let pauseCounter = 0
   let round = 1
-  const duration = 900
+
+
   let timer = duration
   const blinds = [
     [1, 2],
@@ -39,13 +45,13 @@ var Poker = (function () {
     [140, 280],
     [180, 360],
     [300, 600],
-    [300, 600],
-    [300, 600],
-    [300, 600],
-    [300, 600],
-    [300, 600],
-    [300, 600],
-    [300, 600],
+    [500, 1000],
+    [800, 1600],
+    [1000, 2000],
+    [1500, 3000],
+    [2000, 4000],
+    [3000, 6000],
+    [5000, 10000],
   ]
   let interval_id
 
@@ -251,10 +257,23 @@ $('body').on('keypress', function (event) {
 $('.reset-timer').on('click', function (event) {
   Poker.reset()
 })
+
+
 $('#btn-settings').on('click', function (event) {
   hideGameCustomization()
 })
+
+$('#btn-settings-save').on('click', function (event) {
+  saveSettingsToLocalStorage()
+
+  // recalculate winnings etc
+  calculate_prizepool()
+
+  hideGameSettings()
+})
 $('#btn-settings-close').on('click', function (event) {
+  //TODO reset settings from localstorage
+  getSettingsFromLocalStorage()
   hideGameSettings()
 })
 function hideGameCustomization() {
@@ -263,6 +282,9 @@ function hideGameCustomization() {
 
 function showGameSettings() {
   $('.game-customization-box > .game-settings').show(200, "swing")
+  //populate values with data from localstorage
+
+
 }
 
 function hideGameSettings() {
@@ -293,33 +315,42 @@ $('#reset-money').on('click', function (event) {
 })
 
 function calculate_prizepool() {
-  chipcount = start_stack * (player_count + rebuy_count + add_on_count)
-  avg_stack_count = Math.round(chipcount / active_players)
-  prizepool = (player_count + add_on_count + rebuy_count) * buyin_amount_sek
-  if (player_count < 4) {
-    $('.payout-count').html(`Payout:<br/>
+  if (player_count > 0) {
+    chipcount = start_stack * (player_count + rebuy_count + add_on_count)
+    avg_stack_count = Math.round(chipcount / active_players)
+    prizepool = (player_count + add_on_count + rebuy_count) * buyin_amount
+    if (player_count < 4) {
+      $('.payout-count').html(`Payout:<br/>
     <br/>
     1st place: ${Math.round(prizepool)}Kr (100%)<br/>`)
-  } else if (player_count < 7) {
-    $('.payout-count').html(`Payout:<br>
+    } else if (player_count < 7) {
+      $('.payout-count').html(`Payout:<br>
       <br>
       1st place: ${Math.round(prizepool * 0.70)}Kr (70%)<br>
       2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)`)
-  } else if (player_count >= 7 && player_count <= 16) {
-    $('.payout-count').html(`Payout:<br>
+    } else if (player_count >= 7 && player_count <= 16) {
+      $('.payout-count').html(`Payout:<br>
       <br>
       1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
       2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)<br>
       3rd place: ${Math.round(prizepool * 0.20)}Kr (20%)`)
-  } else if (player_count > 16) {
-    $('.payout-count').html(`Payout:<br>
+    } else if (player_count > 16) {
+      $('.payout-count').html(`Payout:<br>
       <br>
       1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
       2nd place: ${Math.round(prizepool * 0.25)}Kr (25%)<br>
       2nd place: ${Math.round(prizepool * 0.15)}Kr (15%)<br>
       4th place: ${Math.round(prizepool * 0.10)}Kr (10%)`)
-  }
+    }
 
+    $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
+    $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
+    $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
+    $('.player-count').html(`Starting Players: ${player_count}`)
+    $('.active-player-count').html(`Players left: ${active_players}`)
+    $('.add-on-count').html(`Add-ons: ${add_on_count}`)
+  }
+  saveStateToLocalStorage()
 }
 $('#btn-add-player').on('click', function (eventet) {
 
@@ -332,10 +363,6 @@ $('#btn-add-player').on('click', function (eventet) {
   player_count++
   active_players++
   calculate_prizepool()
-  $('.player-count').html(`Starting Players: ${player_count}`)
-  $('.active-player-count').html(`Players left: ${active_players}`)
-  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
-  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
   clicklist.push(this)
 })
 
@@ -351,9 +378,6 @@ $('#btn-rebuy').on('click', function (eventet) {
   }
   rebuy_count++
   calculate_prizepool()
-  $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
-  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
-  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
   clicklist.push(this)
 })
 
@@ -370,9 +394,6 @@ $('#btn-add-on').on('click', function (eventet) {
 
   add_on_count++
   calculate_prizepool()
-  $('.add-on-count').html(`Add-ons: ${add_on_count}`)
-  $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
-  $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
   clicklist.push(this)
 })
 
@@ -392,9 +413,6 @@ $('#btn-remove-player').on('click', function (eventet) {
     }
     active_players--
     calculate_prizepool()
-    $('.active-player-count').html(`Players left: ${active_players}`)
-    $('.avg-stack-count').html(`Avg. stack: ${avg_stack_count}`)
-    $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
     clicklist.push(this)
   } else {
     if (eventet.currentTarget.value !== "undoing") {
@@ -483,4 +501,51 @@ function listener(event) {
     default:
       break
   }
+}
+
+function saveSettingsToLocalStorage() {
+
+  // save settings to local storage
+  localStorage.setItem("Buy-In", $('#settings-buyin-amount').val())
+  localStorage.setItem("Chips", $('#settings-starting-chips').val())
+  localStorage.setItem("ITM", $('#settings-payout-positions').val())
+  localStorage.setItem("Lvl_duration", $('#settings-level-time').val())
+
+  getSettingsFromLocalStorage()
+
+}
+
+function getSettingsFromLocalStorage() {
+
+  buyin_amount = Number(localStorage.getItem("Buy-In") || 100)
+  start_stack = Number(localStorage.getItem("Chips") || 100)
+  custom_itm_count = Number(localStorage.getItem("ITM") || 1)
+  duration = Number(localStorage.getItem("Lvl_duration") || 900)
+
+  $('#settings-buyin-amount').val(buyin_amount)
+  $('#settings-starting-chips').val(start_stack)
+  $('#settings-payout-positions').val(custom_itm_count)
+  $('#settings-level-time').val(duration)
+  calculate_prizepool()
+}
+
+function saveStateToLocalStorage() {
+  localStorage.setItem("player_count", player_count)
+  localStorage.setItem("active_players", active_players)
+  localStorage.setItem("rebuy_count", rebuy_count)
+  localStorage.setItem("chipcount", chipcount)
+  localStorage.setItem("prizepool", prizepool)
+  localStorage.setItem("avg_stack_count", avg_stack_count)
+  localStorage.setItem("add_on_count", add_on_count)
+}
+
+function getStateFromLocalStorage() {
+  player_count = Number(localStorage.getItem("player_count") || 0)
+  active_players = Number(localStorage.getItem("active_players") || 0)
+  rebuy_count = Number(localStorage.getItem("rebuy_count") || 0)
+  chipcount = Number(localStorage.getItem("chipcount") || 0)
+  prizepool = Number(localStorage.getItem("prizepool") || 0)
+  avg_stack_count = Number(localStorage.getItem("avg_stack_count") || 0)
+  add_on_count = Number(localStorage.getItem("add_on_count") || 0)
+  calculate_prizepool()
 }

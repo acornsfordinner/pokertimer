@@ -13,6 +13,15 @@
   font-weight: normal;
   font-style: normal;
 }
+.visually-hidden {
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
 
 body {
   height: 100vh;
@@ -95,10 +104,25 @@ aside {
   min-width:inherit;
 }
 
+#settings-header-icons {
+  display:flex;
+  flex-direction:row;
+}
+
+.settings-header-btns{
+  margin-bottom:10px;
+  display:flex;
+  border-radius:50px;
+  align-items:center;
+  justify-content: center;;
+
+}
+
 .settings-item {
   display: flex;
   justify-content: space-between;
   align-items:center;
+  padding-bottom:2px;
 }
 
 .game-customization-box>.game-settings input {
