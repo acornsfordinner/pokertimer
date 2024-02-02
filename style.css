@@ -434,7 +434,7 @@ audio {
 
 @media (height <=900px) {
   body * {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   /** Right Side **/
@@ -469,12 +469,6 @@ audio {
     border: 1px solid transparent;
   }
 
-  .butn {
-    font-size: 14px;
-    margin: 2px;
-    margin-left: 10px;
-    border: 1px solid black;
-  }
 
   .butn-oval {
     border-radius: 0;
@@ -521,6 +515,11 @@ audio {
 
   }
 
+  .holder-butn-oval {
+    height: 6vh;
+
+  }
+
   .main-col {
     width: 100%;
     height: fit-content;
@@ -529,7 +528,32 @@ audio {
     background: radial-gradient(#2c5a39, #2c3a20, #2e1b09 80%);
   }
 
+  #settings-header span {
+    font-size: 2em;
+  }
 
+  .settings-header-btns {
+    height: 6vh;
+    width: 6vh;
+  }
+
+  .settings-header-btns img {
+    height: 4vh;
+    width: 4vh;
+  }
+
+  .game-settings div {
+    height: 6vh;
+  }
+
+  .settings-item label {
+    font-size: 1.9em;
+  }
+
+  .settings-item-input {
+    height: 6vh;
+    font-size: 2em;
+  }
 
   .sidebar-col {
     width: 100%;
@@ -601,9 +625,46 @@ audio {
 
 }
 
+
+/* small phone portrait */
 @media screen and (orientation:portrait) and (width<=500px) {
   .row-title {
     display: none;
+  }
+
+  .holder-butn-oval {
+    height: 8vh;
+  }
+
+  .settings-item label {
+    font-size: 1.5em;
+  }
+
+  .settings-item-input {
+    height: 6vh;
+    font-size: 1.6em;
+  }
+}
+
+/* small phone landscape */
+@media screen and (orientation:landscape) and (width<=900px) {
+  #settings-header-title {
+    display: none;
+  }
+
+  .butn {
+    font-size: 14px;
+    margin: 2px;
+    margin-left: 10px;
+    border: 1px solid black;
+  }
+
+  .settings-item label {
+    font-size: 0.6em;
+  }
+
+  .settings-item-input {
+    width: 60px;
   }
 }
 
