@@ -17,8 +17,6 @@ let undoer = false
 
 
 var Poker = (function () {
-  getStateFromLocalStorage()
-  getSettingsFromLocalStorage()
 
   let paus = false
   let pauseCounter = 0
@@ -227,6 +225,8 @@ var Poker = (function () {
     }
   }
 }())
+
+initiate()
 
 $('#poker_play_pause_span').on('click', function (event) {
   if (Poker.isGamePaused()) {
@@ -658,4 +658,13 @@ function redrawSettingsFromVariables() {
   $('#settings-starting-chips').val(start_stack)
   $('#settings-payout-positions').val(custom_itm_count > 0 ? custom_itm_count : "")
   $('#settings-level-time').val(duration / 60)
+}
+function initiate(){
+  getStateFromLocalStorage()
+  getSettingsFromLocalStorage()
+  let lvl_duration = localStorage.getItem("Lvl_duration")
+  if(Number(lvl_duration) != 900){
+    Poker.setTimer(Number(lvl_duration))
+    Poker.updateClock(Number(lvl_duration))
+  }
 }
