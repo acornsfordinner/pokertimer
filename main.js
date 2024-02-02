@@ -14,6 +14,7 @@ let avg_stack_count = 0
 let custom_itm_count = ""
 let duration = 900
 let undoer = false
+let playSounds = false
 
 
 var Poker = (function () {
@@ -270,6 +271,8 @@ $('.reset-timer').on('click', function (event) {
 })
 
 
+/** SETTINGS LISTENERS **/
+
 $('#btn-settings').on('click', function (event) {
   hideGameCustomization()
 })
@@ -291,9 +294,20 @@ $('#btn-settings-save').on('click', function (event) {
   hideGameSettings()
 })
 
+$('#settings-sound-switch').on('click', function (event) {
+  // check if it is NOW checked (after the click)
+  setSoundOn(document.getElementById('settings-sound-switch').checked)
+})
 
+/** END OF SETTINGS LISTENERS **/
 
-
+function setSoundOn(soundOn){
+    playSounds = soundOn
+    $('audio').each(function (){
+      this.muted = !playSounds
+    })
+    saveSettingsToLocalStorage()
+}
 
 function hideGameCustomization() {
   $('.game-customization-box > .holder-butn-oval').hide(200, "swing", showGameSettings)
@@ -599,6 +613,8 @@ function saveSettingsToLocalStorage() {
   if (lvl_duration.val() < 1 || !lvl_duration) lvl_duration = 1
   localStorage.setItem("Lvl_duration", lvl_duration.val() * 60)
 
+  localStorage.setItem("playSounds", playSounds)
+
 
   getSettingsFromLocalStorage()
 
@@ -611,6 +627,7 @@ function getSettingsFromLocalStorage() {
   custom_itm_count = Number(localStorage.getItem("ITM") || "")
   duration = Number(localStorage.getItem("Lvl_duration") || 900)
   if (duration == 0) duration = 900
+  playSounds = localStorage.getItem("playSounds") || true
   redrawSettingsFromVariables()
   calculate_prizepool()
 }
@@ -637,6 +654,7 @@ function getStateFromLocalStorage() {
   prizepool = Number(localStorage.getItem("prizepool") || 0)
   avg_stack_count = Number(localStorage.getItem("avg_stack_count") || 0)
   add_on_count = Number(localStorage.getItem("add_on_count") || 0)
+  playSounds = localStorage.getItem("playSounds") || true
   calculate_prizepool()
 }
 
@@ -645,6 +663,7 @@ function resetSettings() {
   start_stack = 100
   custom_itm_count = ""
   duration = 900
+  playSounds = true
   redrawSettingsFromVariables()
   saveSettingsToLocalStorage()
 }
@@ -653,6 +672,7 @@ function redrawSettingsFromVariables() {
   $('#settings-starting-chips').val(start_stack)
   $('#settings-payout-positions').val(custom_itm_count > 0 ? custom_itm_count : "")
   $('#settings-level-time').val(duration / 60)
+  document.getElementById("settings-sound-switch").checked = playSounds == "false" ? false : true
 }
 function initiate() {
   getStateFromLocalStorage()
