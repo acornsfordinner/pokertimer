@@ -323,7 +323,7 @@ $('#reset-money').on('click', function (event) {
   prizepool = 0
   avg_stack_count = 0
   chipcount = 0
-
+  if (!undoer) { clicklist = [] }
   $('.player-count').html(`Starting Players: ${player_count}`)
   $('.active-player-count').html(`Players left: ${active_players}`)
   $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
@@ -341,24 +341,31 @@ function calculate_prizepool() {
     // if nr of payout positions is set to auto
     if (player_count < 4) {
       payout_positions = 1
-    }
-    if (player_count < 7) {
+    } else if (player_count >= 4 && player_count < 7) {
       payout_positions = 2
-    } else if (player_count >= 7 && player_count <= 12) {
+    } else if (player_count >= 7 && player_count < 13) {
       payout_positions = 3
-    } else if (player_count > 12 && player_count <= 16) {
+    } else if (player_count >= 13 && player_count < 17) {
       payout_positions = 4
-    } else {
+    } else if (player_count >= 17 && player_count < 24) {
       payout_positions = 5
+    } else if (player_count >= 24 && player_count < 40) {
+      payout_positions = 6
+    } else if (player_count >= 40 && player_count < 60) {
+      payout_positions = 7
+    } else if (player_count >= 60 && player_count < 82) {
+      payout_positions = 8
+    } else {
+      payout_positions = 9
     }
-  } else if (custom_itm_count > player_count) {
-    // not more payouts than players
-    payout_positions = player_count
   } else {
-    // sure, why not, infinite payouts
-    payout_positions = custom_itm_count
+    if (Number(custom_itm_count) > 9) {
+      // not more payouts than players
+      payout_positions = player_count < 9 ? player_count : 9
+    } else {
+      payout_positions = custom_itm_count
+    }
   }
-
 
 
   if (player_count > 0) {
@@ -368,58 +375,35 @@ function calculate_prizepool() {
 
 
 
-    if (payout_positions === 1) {
-      $('.payout-count').html(`Payout:<br/>
-    <br/>
-    1st place: ${Math.round(prizepool)}Kr (100%)<br/>`)
-    } else if (payout_positions === 2) {
-      $('.payout-count').html(`Payout:<br>
-      <br>
-      1st place: ${Math.round(prizepool * 0.70)}Kr (70%)<br>
-      2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)`)
-    } else if (payout_positions === 3) {
-      $('.payout-count').html(`Payout:<br>
-      <br>
-      1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
-      2nd place: ${Math.round(prizepool * 0.30)}Kr (30%)<br>
-      3rd place: ${Math.round(prizepool * 0.20)}Kr (20%)`)
-    } else if (payout_positions === 4) {
-      $('.payout-count').html(`Payout:<br>
-      <br>
-      1st place: ${Math.round(prizepool * 0.50)}Kr (50%)<br>
-      2nd place: ${Math.round(prizepool * 0.25)}Kr (25%)<br>
-      3rd place: ${Math.round(prizepool * 0.15)}Kr (15%)<br>
-      4th place: ${Math.round(prizepool * 0.10)}Kr (10%)`)
-    } else if (payout_positions === 5) {
-      $('.payout-count').html(`Payout:<br>
-      <br>
-      1st place: ${Math.round(prizepool * 0.40)}Kr (40%)<br>
-      2nd place: ${Math.round(prizepool * 0.25)}Kr (25%)<br>
-      3rd place: ${Math.round(prizepool * 0.20)}Kr (20%)<br>
-      4th place: ${Math.round(prizepool * 0.10)}Kr (10%)<br>
-      5th place: ${Math.round(prizepool * 0.05)}Kr (5%)`)
-    } else {
-
-      let five = [0.4]
-
-
-      let infinite_payouts = ""
-      let sillyPayout = Math.round(prizepool / payout_positions)
-      let sillyPercentage = (player_count / payout_positions).toFixed(2)
-      // make this work for all
-      for (let i = 1; i <= payout_positions; i++) {
-
-        infinite_payouts = infinite_payouts.concat(`
+    let infinite_payouts = ""
+    let pays = {
+      "1": [1],
+      "2": [0.70, 0.30],
+      "3": [0.50, 0.30, 0.20],
+      "4": [0.50, 0.25, 0.15, 0.100],
+      "5": [0.45, 0.25, 0.15, 0.100, 0.050],
+      "6": [0.40, 0.20, 0.15, 0.125, 0.075, 0.050],
+      "7": [0.40, 0.20, 0.15, 0.100, 0.075, 0.050, 0.025],
+      "8": [0.40, 0.24, 0.13, 0.070, 0.055, 0.045, 0.035, 0.025],
+      "9": [0.40, 0.23, 0.12, 0.070, 0.055, 0.045, 0.035, 0.025, 0.02]
+    }
+    let doublecheck = 0.0
+    let doublemoney = 0.0
+    for (let i = 1; i <= payout_positions; i++) {
+      doublecheck += pays[payout_positions][i - 1]
+      doublemoney += Math.round(prizepool * pays[payout_positions][i - 1])
+      infinite_payouts = infinite_payouts.concat(`
       ${i}${((i.toString().charAt(i.toString().length - 1) == "1") && i != 11) ? "st"
-            : (i.toString().charAt(i.toString().length - 1) == "2") && i != 12 ? "nd"
-              : (i.toString().charAt(i.toString().length - 1) == "3") && i != 13 ? "rd"
-                : "th"} place: ${sillyPayout}Kr (${sillyPercentage}%)<br>
+          : (i.toString().charAt(i.toString().length - 1) == "2") && i != 12 ? "nd"
+            : (i.toString().charAt(i.toString().length - 1) == "3") && i != 13 ? "rd"
+              : "th"} place: ${Math.round(prizepool * pays[payout_positions][i - 1])}Kr (${Number((pays[payout_positions][i - 1] * 100).toFixed(2))}%)<br>
       `)
-      }
-      $('.payout-count').html(`Payout:<br>
-        <br>${infinite_payouts}`)
     }
 
+    $('.payout-count').html(`Payout:<br>
+        <br>${infinite_payouts}`)
+    //console.log("this should be 1: ", doublecheck)
+    //console.log("this should be ", prizepool, ": ", doublemoney)
 
     $('.rebuy-count').html(`Rebuys: ${rebuy_count}`)
     $('.prizepool-count').html(`Total Prizepool: ${prizepool}`)
@@ -430,6 +414,8 @@ function calculate_prizepool() {
   }
   saveStateToLocalStorage()
 }
+
+
 $('#btn-add-player').on('click', function (eventet) {
 
   if (!undoer) {
@@ -587,11 +573,20 @@ function listener(event) {
 function saveSettingsToLocalStorage() {
 
   // save settings to local storage
-  localStorage.setItem("Buy-In", $('#settings-buyin-amount').val())
-  localStorage.setItem("Chips", $('#settings-starting-chips').val())
+  // make sure no nonsense is saved
+
+  let buyin = $('#settings-buyin-amount').val()
+  if (!buyin || buyin == "" || buyin < 1) buyin = 100
+  localStorage.setItem("Buy-In", buyin)
+
+  let chips = $('#settings-starting-chips').val()
+  if (!chips || chips == "" || chips < 1) chips = 100
+  localStorage.setItem("Chips", chips)
+
   localStorage.setItem("ITM", $('#settings-payout-positions').val())
 
   let lvl_duration = $('#settings-level-time')
+  if (!lvl_duration || lvl_duration.val() == "" || lvl_duration.val() < 1) lvl_duration.val(15)
   if (lvl_duration.val() * 60 != localStorage.getItem("Lvl_duration")) {
     // times are a changin
     Poker.stopClock()
@@ -601,7 +596,7 @@ function saveSettingsToLocalStorage() {
 
   }
 
-  if (lvl_duration < 1 || !lvl_duration) lvl_duration = 1
+  if (lvl_duration.val() < 1 || !lvl_duration) lvl_duration = 1
   localStorage.setItem("Lvl_duration", lvl_duration.val() * 60)
 
 
@@ -615,7 +610,7 @@ function getSettingsFromLocalStorage() {
   start_stack = Number(localStorage.getItem("Chips") || 100)
   custom_itm_count = Number(localStorage.getItem("ITM") || "")
   duration = Number(localStorage.getItem("Lvl_duration") || 900)
-  if (duration == 0) duration = 60
+  if (duration == 0) duration = 900
   redrawSettingsFromVariables()
   calculate_prizepool()
 }
@@ -659,11 +654,14 @@ function redrawSettingsFromVariables() {
   $('#settings-payout-positions').val(custom_itm_count > 0 ? custom_itm_count : "")
   $('#settings-level-time').val(duration / 60)
 }
-function initiate(){
+function initiate() {
   getStateFromLocalStorage()
   getSettingsFromLocalStorage()
   let lvl_duration = localStorage.getItem("Lvl_duration")
-  if(Number(lvl_duration) != 900){
+  if (lvl_duration == 0) {
+
+  }
+  if (lvl_duration && Number(lvl_duration) != 900) {
     Poker.setTimer(Number(lvl_duration))
     Poker.updateClock(Number(lvl_duration))
   }
