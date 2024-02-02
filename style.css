@@ -13,6 +13,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 .visually-hidden {
   clip-path: inset(100%);
   clip: rect(1px, 1px, 1px, 1px);
@@ -97,43 +98,59 @@ aside {
   flex-direction: column;
 
 }
+
 #settings-header {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width:inherit;
+  min-width: inherit;
+  margin-bottom: 8px;
 }
 
 #settings-header-icons {
-  display:flex;
-  flex-direction:row;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.settings-header-btns{
-  margin-bottom:10px;
-  display:flex;
-  border-radius:50px;
-  align-items:center;
-  justify-content: center;;
+.settings-header-btns {
+  margin-left: 4px;
+  display: flex;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
 
 }
 
 .settings-item {
   display: flex;
   justify-content: space-between;
-  align-items:center;
-  padding-bottom:2px;
+  align-items: center;
+  margin-bottom: 8px;
+  height: 30px;
+  line-height: 16px;
 }
 
-.game-customization-box>.game-settings input {
+
+.settings-item-input {
   background-color: inherit;
   border-radius: 50px;
   padding-left: 10px;
-  padding-right:10px;
-  text-align:end;
-  width:100px;
+  padding-right: 10px;
+  text-align: end;
+  width: 100px;
 }
 
+.settings-item-input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.settings-item-input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
 
 .holder-butn-oval {
   display: flex;
@@ -590,6 +607,66 @@ audio {
   }
 }
 
+/* END OF MEDIA QUERIES */
+
+
+/* thx w3 */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+#settings-sound-switch {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 34px;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  content: "";
+  bottom: 4px;
+  height: 26px;
+  left: 4px;
+  width: 26px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+#settings-sound-switch:checked+.slider {
+  background-color: #28f321;
+}
+
+#settings-sound-switch:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+#settings-sound-switch:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* end */
+
 /* ANIMATIONS */
 
 
@@ -635,6 +712,10 @@ audio {
   animation-iteration-count: 1;
   animation-duration: 0.5s;
 }
+
+/* END OF ANIMATIONS */
+
+/* KEYFRAMES */
 
 @keyframes grey_green_pulse {
   0% {
@@ -1127,3 +1208,5 @@ audio {
     background-color: rgb(187, 138, 11);
   }
 }
+
+/* END OF KEYFRAMES */

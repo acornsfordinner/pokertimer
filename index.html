@@ -56,38 +56,57 @@
             <span id="settings-header-icons">
 
 
-              <button aria-labelledby="settings-close-label" class="settings-header-btns" id="btn-settings-close" type="button">
-                <img src="Icons/undo.svg" height="20px" width="20px"/>
+              <button aria-labelledby="settings-close-label" title="Go back without saving" class="settings-header-btns"
+                id="btn-settings-close" type="button">
+                <img src="Icons/undo.svg" height="20px" width="20px" />
               </button>
-              <div role="tooltip" class="visually-hidden" id="settings-close-label">Go back without saving.</div>
+              <div role="tooltip" class="visually-hidden" id="settings-close-label">Go back without saving</div>
 
-              <button aria-labelledby="settings-save-label" class="settings-header-btns" id="btn-settings-save" type="button">
+              <button aria-labelledby="settings-reset-label" title="Reset settings" class="settings-header-btns"
+                id="btn-settings-reset" type="button">
+                <img src="Icons/reset.svg" height="20px" width="20px" />
+              </button>
+              <div role="tooltip" class="visually-hidden" id="settings-reset-label">Reset settings</div>
+
+
+              <button aria-labelledby="settings-save-label" title="Save settings" class="settings-header-btns"
+                id="btn-settings-save" type="button">
                 <img src="Icons/floppy.svg" height="20px" width="20px" />
               </button>
-              <div role="tooltip" class="visually-hidden" id="settings-save-label">Save your settings.</div>
+              <div role="tooltip" class="visually-hidden" id="settings-save-label">Save settings</div>
 
 
-          </span>
+            </span>
           </div>
           <div class="settings-item">
             <label for="settings-buyin-amount" title>Buy-In amount</label>
-            <input type="number" id="settings-buyin-amount" name="settings-buyin-amount" min="1"
-              list="defaultNumbers" value="100" />
+            <input class="settings-item-input" type="number" id="settings-buyin-amount" name="settings-buyin-amount"
+              min="1" list="defaultNumbers" value="100" />
           </div>
           <div class="settings-item">
             <label for="settings-starting-chips">Starting Chips</label>
-            <input type="number" id="settings-starting-chips" name="settings-starting-chips" list="defaultNumbers"
-              min="1"  value="100" />
+            <input class="settings-item-input" type="number" id="settings-starting-chips" name="settings-starting-chips"
+              list="defaultNumbers" min="1" value="100" />
           </div>
           <div class="settings-item">
             <label for="settings-payout-positions">Payout Positions</label>
-            <input type="number" id="settings-payout-positions" name="payout-positions" min="1" value="" placeholder="auto" />
+            <input class="settings-item-input" type="number" id="settings-payout-positions" name="payout-positions"
+              min="1" value="" placeholder="auto" />
           </div>
           <div class="settings-item">
             <label for="settings-level-time">Minutes per level</label>
-            <input type="number" id="settings-level-time" name="settings-level-time" min="1" value="15" />
+            <input class="settings-item-input" type="number" id="settings-level-time" name="settings-level-time" min="1"
+              value="15" />
           </div>
 
+          <div class="settings-item">
+            <label for="settings-sound-switch">Sounds</label>
+            <label class="switch">
+              <input class="settings-item-input" type="checkbox" id="settings-sound-switch" name="settings-sound-switch"
+                min="1" value="15" />
+              <span class="slider round"></span>
+            </label>
+          </div>
           <datalist id="defaultNumbers">
             <option value="50"></option>
             <option value="100"></option>

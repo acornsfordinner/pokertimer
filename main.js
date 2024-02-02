@@ -3,7 +3,7 @@
 
 let clicklist = []
 let buyin_amount = 100
-let start_stack = 200
+let start_stack = 100
 let player_count = 0
 let active_players = 0
 let add_on_count = 0
@@ -87,6 +87,9 @@ var Poker = (function () {
     resetTimer: function () {
       timer = duration
     },
+    setTimer: function (newTimer) {
+      timer = newTimer
+    },
     startClock: function () {
       if (round === 1 && timer == duration) {
         $('#alarm-start')[0].play()
@@ -95,11 +98,14 @@ var Poker = (function () {
       var that = this
 
       interval_id = setInterval(function () {
-        if (timer === 900) { timer -= 1 }
+        if (timer == duration) { timer -= 1 }
         that.updateClock(timer)
 
         timer -= 1
       }, 1000)
+    },
+    getRound: function () {
+      return round
     },
     startNextRound: function () {
       // reset timer
@@ -238,11 +244,14 @@ $('#poker_next_round').on('click', function (event) {
   Poker.startNextRound()
 })
 $('#poker_previous_round').on('click', function (event) {
-  Poker.startPreviousRound()
+  if (Poker.getRound() > 1)
+    Poker.startPreviousRound()
 })
 
 $('body').on('keypress', function (event) {
+  // don't start timer if toggle switch is in focus
   if (event.originalEvent.code === "Space") {
+    if (document.activeElement == document.getElementById("settings-sound-switch")) return
     if (Poker.isGamePaused()) {
       Poker.startClock()
     } else {
@@ -254,6 +263,8 @@ $('body').on('keypress', function (event) {
 })
 
 
+
+
 $('.reset-timer').on('click', function (event) {
   Poker.reset()
 })
@@ -261,6 +272,14 @@ $('.reset-timer').on('click', function (event) {
 
 $('#btn-settings').on('click', function (event) {
   hideGameCustomization()
+})
+$('#btn-settings-close').on('click', function (event) {
+  getSettingsFromLocalStorage()
+  hideGameSettings()
+})
+
+$('#btn-settings-reset').on('click', function (event) {
+  resetSettings()
 })
 
 $('#btn-settings-save').on('click', function (event) {
@@ -271,11 +290,11 @@ $('#btn-settings-save').on('click', function (event) {
 
   hideGameSettings()
 })
-$('#btn-settings-close').on('click', function (event) {
-  //TODO reset settings from localstorage
-  getSettingsFromLocalStorage()
-  hideGameSettings()
-})
+
+
+
+
+
 function hideGameCustomization() {
   $('.game-customization-box > .holder-butn-oval').hide(200, "swing", showGameSettings)
 }
@@ -380,13 +399,21 @@ function calculate_prizepool() {
       4th place: ${Math.round(prizepool * 0.10)}Kr (10%)<br>
       5th place: ${Math.round(prizepool * 0.05)}Kr (5%)`)
     } else {
+
+      let five = [0.4]
+
+
       let infinite_payouts = ""
       let sillyPayout = Math.round(prizepool / payout_positions)
-      let sillyPercentage = (player_count/payout_positions).toFixed(2)
+      let sillyPercentage = (player_count / payout_positions).toFixed(2)
+      // make this work for all
       for (let i = 1; i <= payout_positions; i++) {
-        
+
         infinite_payouts = infinite_payouts.concat(`
-      ${i}${((i.toString().charAt(i.toString().length - 1) == "1") && i != 11) ? "st" : (i.toString().charAt(i.toString().length - 1) == "2") && i != 12 ? "nd" : (i.toString().charAt(i.toString().length - 1) == "3") && i != 13 ? "rd" : "th"} place: ${sillyPayout}Kr (${sillyPercentage}%)<br>
+      ${i}${((i.toString().charAt(i.toString().length - 1) == "1") && i != 11) ? "st"
+            : (i.toString().charAt(i.toString().length - 1) == "2") && i != 12 ? "nd"
+              : (i.toString().charAt(i.toString().length - 1) == "3") && i != 13 ? "rd"
+                : "th"} place: ${sillyPayout}Kr (${sillyPercentage}%)<br>
       `)
       }
       $('.payout-count').html(`Payout:<br>
@@ -563,7 +590,20 @@ function saveSettingsToLocalStorage() {
   localStorage.setItem("Buy-In", $('#settings-buyin-amount').val())
   localStorage.setItem("Chips", $('#settings-starting-chips').val())
   localStorage.setItem("ITM", $('#settings-payout-positions').val())
-  localStorage.setItem("Lvl_duration", $('#settings-level-time').val() * 60)
+
+  let lvl_duration = $('#settings-level-time')
+  if (lvl_duration.val() * 60 != localStorage.getItem("Lvl_duration")) {
+    // times are a changin
+    Poker.stopClock()
+    Poker.setTimer(lvl_duration.val() * 60)
+    Poker.updateClock(Number(lvl_duration.val() * 60))
+    Poker.updatePlayPauseButton()
+
+  }
+
+  if (lvl_duration < 1 || !lvl_duration) lvl_duration = 1
+  localStorage.setItem("Lvl_duration", lvl_duration.val() * 60)
+
 
   getSettingsFromLocalStorage()
 
@@ -575,12 +615,8 @@ function getSettingsFromLocalStorage() {
   start_stack = Number(localStorage.getItem("Chips") || 100)
   custom_itm_count = Number(localStorage.getItem("ITM") || "")
   duration = Number(localStorage.getItem("Lvl_duration") || 900)
-
-  $('#settings-buyin-amount').val(buyin_amount)
-  $('#settings-starting-chips').val(start_stack)
-  $('#settings-payout-positions').val(custom_itm_count > 0 ? custom_itm_count : "")
-
-  $('#settings-level-time').val(duration / 60)
+  if (duration == 0) duration = 60
+  redrawSettingsFromVariables()
   calculate_prizepool()
 }
 
@@ -607,4 +643,19 @@ function getStateFromLocalStorage() {
   avg_stack_count = Number(localStorage.getItem("avg_stack_count") || 0)
   add_on_count = Number(localStorage.getItem("add_on_count") || 0)
   calculate_prizepool()
+}
+
+function resetSettings() {
+  buyin_amount = 100
+  start_stack = 100
+  custom_itm_count = ""
+  duration = 900
+  redrawSettingsFromVariables()
+  saveSettingsToLocalStorage()
+}
+function redrawSettingsFromVariables() {
+  $('#settings-buyin-amount').val(buyin_amount)
+  $('#settings-starting-chips').val(start_stack)
+  $('#settings-payout-positions').val(custom_itm_count > 0 ? custom_itm_count : "")
+  $('#settings-level-time').val(duration / 60)
 }
