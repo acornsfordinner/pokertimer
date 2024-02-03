@@ -301,12 +301,14 @@ $('#settings-sound-switch').on('click', function (event) {
 
 /** END OF SETTINGS LISTENERS **/
 
-function setSoundOn(soundOn){
-    playSounds = soundOn
-    $('audio').each(function (){
-      this.muted = !playSounds
-    })
-    saveSettingsToLocalStorage()
+/** SETTINGS FUNCTIONS **/
+
+function setSoundOn(soundOn) {
+  playSounds = soundOn
+  $('audio').each(function () {
+    this.muted = !playSounds
+  })
+  saveSettingsToLocalStorage()
 }
 
 function hideGameCustomization() {
@@ -327,6 +329,7 @@ function showGameCustomization() {
   $('.game-customization-box > .holder-butn-oval').show(200, "swing")
 }
 
+/** END OF SETTINGS FUNCTIONS **/
 
 
 $('#reset-money').on('click', function (event) {
@@ -349,8 +352,8 @@ $('#reset-money').on('click', function (event) {
 })
 
 function calculate_prizepool() {
-  //custom_itm_count
   let payout_positions = 0
+  let forceCustomPayout = false
   if (custom_itm_count == "" || !custom_itm_count || custom_itm_count == 0) {
     // if nr of payout positions is set to auto
     if (player_count < 4) {
@@ -373,9 +376,10 @@ function calculate_prizepool() {
       payout_positions = 9
     }
   } else {
-    if (Number(custom_itm_count) > 9) {
+    forceCustomPayout = true
+    if (Number(custom_itm_count) > player_count) {
       // not more payouts than players
-      payout_positions = player_count < 9 ? player_count : 9
+      payout_positions = player_count
     } else {
       payout_positions = custom_itm_count
     }
@@ -401,11 +405,16 @@ function calculate_prizepool() {
       "8": [0.40, 0.24, 0.13, 0.070, 0.055, 0.045, 0.035, 0.025],
       "9": [0.40, 0.23, 0.12, 0.070, 0.055, 0.045, 0.035, 0.025, 0.02]
     }
+    console.log(payout_positions)
+    // only use the algorithm split if many payouts, since it's not as good as the hard-coded split
+    if (forceCustomPayout && payout_positions > 9) {
+      pays[payout_positions] = calculate_percentage_split(payout_positions)
+    }
     let doublecheck = 0.0
     let doublemoney = 0.0
     for (let i = 1; i <= payout_positions; i++) {
-      doublecheck += pays[payout_positions][i - 1]
-      doublemoney += Math.round(prizepool * pays[payout_positions][i - 1])
+      //doublecheck += pays[payout_positions][i - 1]
+      //doublemoney += Math.round(prizepool * pays[payout_positions][i - 1])
       infinite_payouts = infinite_payouts.concat(`
       ${i}${((i.toString().charAt(i.toString().length - 1) == "1") && i != 11) ? "st"
           : (i.toString().charAt(i.toString().length - 1) == "2") && i != 12 ? "nd"
@@ -427,6 +436,17 @@ function calculate_prizepool() {
     $('.add-on-count').html(`Add-ons: ${add_on_count}`)
   }
   saveStateToLocalStorage()
+}
+
+function calculate_percentage_split(payouts) {
+  let p = []
+  for (let i = 0; i < payouts; i++) {
+    p[i] = (1 / payouts) / (i + 1)
+    for (let k = i; k > 0; k--) {
+      p[k - 1] += p[i]
+    }
+  }
+  return p
 }
 
 
@@ -584,6 +604,8 @@ function listener(event) {
   }
 }
 
+/** localStorage getting and setting functions **/
+
 function saveSettingsToLocalStorage() {
 
   // save settings to local storage
@@ -626,7 +648,7 @@ function getSettingsFromLocalStorage() {
   start_stack = Number(localStorage.getItem("Chips") || 100)
   custom_itm_count = Number(localStorage.getItem("ITM") || "")
   duration = Number(localStorage.getItem("Lvl_duration") || 900)
-  if (duration == 0) duration = 900
+  if (duration == 0) { duration = 900 }
   playSounds = localStorage.getItem("playSounds") || true
   redrawSettingsFromVariables()
   calculate_prizepool()
@@ -664,6 +686,7 @@ function resetSettings() {
   custom_itm_count = ""
   duration = 900
   playSounds = true
+  setSoundOn(true)
   redrawSettingsFromVariables()
   saveSettingsToLocalStorage()
 }
@@ -685,4 +708,7 @@ function initiate() {
     Poker.setTimer(Number(lvl_duration))
     Poker.updateClock(Number(lvl_duration))
   }
+  if (!playSounds || playSounds == "false") { setSoundOn(false) }
 }
+
+/** end of localStorage functions **/
