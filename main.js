@@ -297,6 +297,7 @@ $('#btn-settings-save').on('click', function (event) {
 $('#settings-sound-switch').on('click', function (event) {
   // check if it is NOW checked (after the click)
   setSoundOn(document.getElementById('settings-sound-switch').checked)
+  saveSettingsToLocalStorage()
 })
 
 /** END OF SETTINGS LISTENERS **/
@@ -308,7 +309,7 @@ function setSoundOn(soundOn) {
   $('audio').each(function () {
     this.muted = !playSounds
   })
-  saveSettingsToLocalStorage()
+
 }
 
 function hideGameCustomization() {
@@ -405,7 +406,6 @@ function calculate_prizepool() {
       "8": [0.40, 0.24, 0.13, 0.070, 0.055, 0.045, 0.035, 0.025],
       "9": [0.40, 0.23, 0.12, 0.070, 0.055, 0.045, 0.035, 0.025, 0.02]
     }
-    console.log(payout_positions)
     // only use the algorithm split if many payouts, since it's not as good as the hard-coded split
     if (forceCustomPayout && payout_positions > 9) {
       pays[payout_positions] = calculate_percentage_split(payout_positions)
@@ -644,10 +644,10 @@ function saveSettingsToLocalStorage() {
 
 function getSettingsFromLocalStorage() {
 
-  buyin_amount = Number(localStorage.getItem("Buy-In") || 100)
-  start_stack = Number(localStorage.getItem("Chips") || 100)
-  custom_itm_count = Number(localStorage.getItem("ITM") || "")
-  duration = Number(localStorage.getItem("Lvl_duration") || 900)
+  buyin_amount = Number(localStorage.getItem("Buy-In")) || 100
+  start_stack = Number(localStorage.getItem("Chips")) || 100
+  custom_itm_count = Number(localStorage.getItem("ITM")) || ""
+  duration = Number(localStorage.getItem("Lvl_duration")) || 900
   if (duration == 0) { duration = 900 }
   playSounds = localStorage.getItem("playSounds") || true
   redrawSettingsFromVariables()
@@ -709,6 +709,7 @@ function initiate() {
     Poker.updateClock(Number(lvl_duration))
   }
   if (!playSounds || playSounds == "false") { setSoundOn(false) }
+  
 }
 
 /** end of localStorage functions **/
